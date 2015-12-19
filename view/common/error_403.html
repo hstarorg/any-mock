@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forbidden - ThinkJS</title>
+    <link rel="stylesheet" href="/static/css/page.css"/>
+</head>
+<body>
+<div class="header">
+    <div class="wrap">
+        <div class="logo"><a href="http://www.thinkjs.org/">
+            <img src="/static/img/logo.png" alt="ThinkJS"></a></div>
+        <div class="headr">
+            <a href="http://www.thinkjs.org/doc/error_handle.html#403" target="_blank">Why might this be happening?</a>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="error-403"></div>
+    <h1>Forbidden</h1>
+
+    <div class="error-msg">
+        <pre><%if(http.error){%><%=http.error.message%><%}%></pre>
+    </div>
+</div>
+</body>
+</html>
