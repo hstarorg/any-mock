@@ -1,16 +1,35 @@
 {
-  "name": "any-mock-application",
-  "description": "A configurable mock server,help you mock APIs. ",
+  "name": "any-mock",
   "version": "0.0.1",
+  "description": "A conbfigurable mock server, help you mock APIs.",
+  "main": "index.js",
   "scripts": {
-    "start": "node www/development.js",
-    "compile": "babel --loose all --optional runtime --stage 0 --modules common src/ --out-dir app/ --retain-lines",
-    "watch-compile": "node -e \"console.log('<npm run watch-compile> no longer need, use <npm start> command direct.');console.log();\"",
-    "watch": "npm run watch-compile"
+    "start": "node index.js",
+    "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hstarorg/any-mock.git"
+  },
+  "keywords": [
+    "Mock",
+    "API"
+  ],
+  "author": "Jay.M.Hu (Hstar)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hstarorg/any-mock/issues"
+  },
+  "homepage": "https://github.com/hstarorg/any-mock#readme",
   "dependencies": {
-    "thinkjs": "2.0.x",
-    "babel": "5.8.21",
-    "babel-runtime": "5.6.17"
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "nedb": "^1.7.1"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-develop-server": "^0.5.0",
+    "gulp-notify": "^2.2.0"
   }
 }
