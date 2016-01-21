@@ -25,4 +25,5 @@ gulp.task('restart', () => {
 gulp.task('watch', (callback) => gulp.watch('src/**/*', gulp.series('copy', 'restart')));
 
 //默认任务，入口点（命令： gulp / gulp default）
+//noinspection JSUnresolvedFunction
 gulp.task('default', gulp.series('clean', 'copy', gulp.parallel('serve', 'watch')));

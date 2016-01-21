@@ -1,11 +1,14 @@
 'use strict';
 
 var express = require('express');
+
+var mockapiBiz = require('./../bizs/mockapiBiz');
+
 var router = express.Router();
 
-router.all('/:appId/*', (req, res, next) => {
-  console.log(req.method, req.params.appId, req.params);
-  res.send('good222454545454545');
-});
+router.all('/:appId/*',
+  mockapiBiz.matchUri,
+  mockapiBiz.responseData
+);
 
 module.exports = router;
