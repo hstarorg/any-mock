@@ -3,7 +3,6 @@
 var express = require('express');
 
 var mockapiBiz = require('./../bizs/mockapiBiz');
-
 var router = express.Router();
 
 router.all('/:appId/*',
