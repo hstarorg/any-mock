@@ -11,7 +11,9 @@ var mockApiRouter = require('./../routes/mockapi');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'static')));
+var staticResourcePath = path.join(__dirname, './../static/');
+console.log(staticResourcePath);
+app.use(express.static(staticResourcePath));
 
 //Load router
 app.use('/manage', manageRouter);
