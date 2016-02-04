@@ -1,318 +1,345 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
 <head>
-    <title>Any mock - Mock your api very easy.</title>
+  <title>Any mock - Mock your api very easy.</title>
 
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico">
 
-    <!-- Web Fonts -->
-    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+  <!-- Web Fonts -->
+  <link rel='stylesheet' type='text/css' href='/assets/unify/css/webfont.css'>
 
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/assets/unify/css/style.css">
+  <!-- CSS Global Compulsory -->
+  <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/unify/css/style.css">
 
-    <!-- CSS Header and Footer -->
-    <link rel="stylesheet" href="/assets/unify/css/headers/header-default.css">
-    <link rel="stylesheet" href="/assets/unify/css/footers/footer-v1.css">
+  <!-- CSS Header and Footer -->
+  <link rel="stylesheet" href="/assets/unify/css/headers/header-default.css">
+  <link rel="stylesheet" href="/assets/unify/css/footers/footer-v1.css">
 
-    <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="assets/unify/plugins/animate.css">
-    <link rel="stylesheet" href="assets/unify/plugins/line-icons/line-icons.css">
-    <link rel="stylesheet" href="assets/unify/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/unify/plugins/owl-carousel/owl-carousel/owl.carousel.css">    
-    <link rel="stylesheet" href="assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
-    <link rel="stylesheet" href="assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
-    <!--[if lt IE 9]><link rel="stylesheet" href="assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms-ie8.css"><![endif]-->
+  <!-- CSS Implementing Plugins -->
+  <link rel="stylesheet" href="assets/unify/plugins/animate.css">
 
-    <!-- CSS Page Style -->    
-    <link rel="stylesheet" href="/assets/unify/css/pages/page_search.css">
+  <!-- CSS Page Style -->
+  <link rel="stylesheet" href="/assets/unify/css/pages/page_search.css">
 
-    <!-- CSS Theme -->    
-    <link rel="stylesheet" href="/assets/unify/css/theme-skins/dark.css">
+  <!-- CSS Theme -->
+  <link rel="stylesheet" href="/assets/unify/css/theme-skins/dark.css">
 
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="/assets/unify/css/custom.css">
-</head> 
+  <!-- CSS Customization -->
+  <link rel="stylesheet" href="/assets/unify/css/custom.css">
+</head>
 
 <body class="dark boxed-layout container">
 
-<div class="wrapper">
-    <!--=== Header ===-->    
+  <div class="wrapper">
+    <!--=== Header ===-->
     <div class="header">
+      <div class="container">
+        <!-- Logo -->
+        <a class="logo" href="index.html">
+          <img src="assets/unify/img/logo1-default.png" alt="Logo">
+        </a>
+        <!-- End Logo -->
+
+        <!-- Topbar -->
+        <div class="topbar">
+          <ul class="loginbar pull-right">
+            <li><a href="/help">Help</a></li>
+            <li class="topbar-devider"></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </div>
+        <!-- End Topbar -->
+
+        <!-- Toggle get grouped for better mobile display -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="fa fa-bars"></span>
+        </button>
+        <!-- End Toggle -->
+      </div>
+      <!--/end container-->
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
         <div class="container">
-            <!-- Logo -->
-            <a class="logo" href="index.html">
-                <img src="assets/unify/img/logo1-default.png" alt="Logo">
-            </a>
-            <!-- End Logo -->
-            
-            <!-- Topbar -->
-            <div class="topbar">
-                <ul class="loginbar pull-right">
-                    <li><a href="/help">Help</a></li>  
-                    <li class="topbar-devider"></li>   
-                    <li><a href="/login">Login</a></li>   
-                </ul>
-            </div>
-            <!-- End Topbar -->
-
-            <!-- Toggle get grouped for better mobile display -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="fa fa-bars"></span>
-            </button>
-            <!-- End Toggle -->
-        </div><!--/end container-->
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
-            <div class="container">
-                <ul class="nav navbar-nav">
-                    <!-- Home -->
-                    <li>
-                        <a href="javascript:void(0);" class="dropdown-toggle">
+          <ul class="nav navbar-nav">
+            <!-- Home -->
+            <li>
+              <a href="javascript:void(0);" class="dropdown-toggle">
                             Home
                         </a>
-                    </li>
-                    <!-- End Home -->
+            </li>
+            <!-- End Home -->
 
-                    <!-- Console -->
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- Console -->
+            <li class="dropdown">
+              <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                             Console
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="blog_masonry_3col.html">Your Apps</a></li>
-                            <li><a href="blog_timeline.html">View Logs</a></li>                            
-                        </ul>
-                    </li>
-                    <!-- End Console -->
+              <ul class="dropdown-menu">
+                <li><a href="blog_masonry_3col.html">Your Apps</a></li>
+                <li><a href="blog_timeline.html">View Logs</a></li>
+              </ul>
+            </li>
+            <!-- End Console -->
 
-                    <!-- Search Block -->
-                    <li>
-                        <i class="search fa fa-search search-btn"></i>
-                        <div class="search-open">
-                            <div class="input-group animated fadeInDown">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn">
+            <!-- Search Block -->
+            <li>
+              <i class="search fa fa-search search-btn"></i>
+              <div class="search-open">
+                <div class="input-group animated fadeInDown">
+                  <input type="text" class="form-control" placeholder="Search">
+                  <span class="input-group-btn">
                                     <button class="btn-u" type="button">Go</button>
                                 </span>
-                            </div>
-                        </div>    
-                    </li>
-                    <!-- End Search Block -->
-                </ul>
-            </div><!--/end container-->
-        </div><!--/navbar-collapse-->
+                </div>
+              </div>
+            </li>
+            <!-- End Search Block -->
+          </ul>
+        </div>
+        <!--/end container-->
+      </div>
+      <!--/navbar-collapse-->
     </div>
     <!--=== End Header ===-->
 
     <!--=== Search Block ===-->
     <div class="search-block parallaxBg">
-        <div class="container">
-            <div class="col-md-6 col-md-offset-3">
-                <h1>Discover <span class="color-green">new</span> things</h1>
+      <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+          <h1>SEARCH <span class="color-green">MOCK</span> APIs</h1>
 
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search words with regular expressions ...">
-                    <span class="input-group-btn">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search words with regular expressions ...">
+            <span class="input-group-btn">
                         <button class="btn-u btn-u-lg" type="button"><i class="fa fa-search"></i></button>
                     </span>
-                </div>
-
-                <form action="" class="sky-form page-search-form">
-                    <div class="inline-group">                    
-                        <label class="checkbox"><input type="checkbox" name="checkbox-inline" checked><i></i>Recent</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox-inline"><i></i>Related</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox-inline"><i></i>Popular</label>
-                        <label class="checkbox"><input type="checkbox" name="checkbox-inline"><i></i>Most Common</label>
-                    </div>
-                </form>    
-            </div>
-        </div>    
-    </div><!--/container-->     
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/container-->
     <!--=== End Search Block ===-->
 
     <!--=== Content ===-->
     <div class="container content">
-        <!-- Top Categories -->
-        <div class="headline"><h2>Top Categories</h2></div>  
-        <div class="row category margin-bottom-20">
-            <!-- Info Blocks -->
-            <div class="col-md-4 col-sm-6">
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-sea icon-line icon-badge"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Top 100 templates</a></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-red fa fa-hdd-o"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Wikipedia</a> <small>(10837)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-brown fa fa-desktop"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Web design</a> <small>(462)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-green icon-line icon-graduation"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Education</a> <small>(396)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-dark fa fa-film"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Filmography</a> <small>(156)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-            </div>    
-            <!-- End Info Blocks -->
-
-            <!-- Info Blocks -->
-            <div class="col-md-4 col-sm-6 md-margin-bottom-40">
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-blue fa fa-bell-o"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Hi-Tech</a> <small>(324)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-yellow fa fa-thumbs-o-up"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Programming</a> <small>(4053)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-aqua icon-line icon-playlist"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Music</a> <small>(268)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-purple fa fa-lightbulb-o"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Engineering</a> <small>(703)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-                <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
-                    <i class="icon-custom icon-sm rounded-x icon-bg-orange fa fa-area-chart"></i>
-                    <div class="content-boxes-in-v3">
-                        <h3><a href="#"> Others</a> <small>(1296)</small></h3>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-                    </div>
-                </div>
-            </div>    
-            <!-- End Info Blocks -->
-        </div>    
-        <!-- End Top Categories -->
-    </div><!--/container-->     
+      <!-- Top Categories -->
+      <div class="headline">
+        <h2>Top Categories</h2></div>
+      <div class="row category margin-bottom-20">
+        <!-- Info Blocks -->
+        <div class="col-md-4 col-sm-6">
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-sea icon-line icon-badge"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Top 100 templates</a></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-red fa fa-hdd-o"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Wikipedia</a> <small>(10837)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-brown fa fa-desktop"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Web design</a> <small>(462)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-green icon-line icon-graduation"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Education</a> <small>(396)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-dark fa fa-film"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Filmography</a> <small>(156)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+        </div>
+        <!-- End Info Blocks -->
+        <div class="col-md-4 col-sm-6">
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-sea icon-line icon-badge"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Top 100 templates</a></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-red fa fa-hdd-o"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Wikipedia</a> <small>(10837)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-brown fa fa-desktop"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Web design</a> <small>(462)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-green icon-line icon-graduation"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Education</a> <small>(396)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-dark fa fa-film"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Filmography</a> <small>(156)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+        </div>
+        <!-- Info Blocks -->
+        <div class="col-md-4 col-sm-6 md-margin-bottom-40">
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-blue fa fa-bell-o"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Hi-Tech</a> <small>(324)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-yellow fa fa-thumbs-o-up"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Programming</a> <small>(4053)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-aqua icon-line icon-playlist"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Music</a> <small>(268)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-purple fa fa-lightbulb-o"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Engineering</a> <small>(703)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+          <div class="content-boxes-v3 margin-bottom-10 md-margin-bottom-20">
+            <i class="icon-custom icon-sm rounded-x icon-bg-orange fa fa-area-chart"></i>
+            <div class="content-boxes-in-v3">
+              <h3><a href="#"> Others</a> <small>(1296)</small></h3>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+            </div>
+          </div>
+        </div>
+        <!-- End Info Blocks -->
+      </div>
+      <!-- End Top Categories -->
+    </div>
+    <!--/container-->
     <!--=== End Content ===-->
 
     <!--=== Footer Version 1 ===-->
     <div class="footer-v1">
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">                     
-                        <p>
-                            2015 &copy; All Rights Reserved.
-                           <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-                        </p>
-                    </div>
+      <div class="copyright">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <p>
+                2015 &copy; All Rights Reserved.
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+              </p>
+            </div>
 
-                    <!-- Social Links -->
-                    <div class="col-md-6">
-                        <ul class="footer-socials list-inline">
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype">
-                                    <i class="fa fa-skype"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google Plus">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest">
-                                    <i class="fa fa-pinterest"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
-                                    <i class="fa fa-dribbble"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Social Links -->
-                </div>
-            </div> 
-        </div><!--/copyright-->
-    </div>     
+            <!-- Social Links -->
+            <div class="col-md-6">
+              <ul class="footer-socials list-inline">
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype">
+                    <i class="fa fa-skype"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google Plus">
+                    <i class="fa fa-google-plus"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest">
+                    <i class="fa fa-pinterest"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dribbble">
+                    <i class="fa fa-dribbble"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- End Social Links -->
+          </div>
+        </div>
+      </div>
+      <!--/copyright-->
+    </div>
     <!--=== End Footer Version 1 ===-->
-</div><!--/End Wrapepr-->
+  </div>
+  <!--/End Wrapepr-->
 
-<!-- JS Global Compulsory -->           
-<script type="text/javascript" src="/assets/jquery/jquery.js"></script>
-<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.js"></script> 
-<!-- JS Implementing Plugins -->
-<script type="text/javascript" src="/assets/unify/plugins/back-to-top.js"></script>
-<script type="text/javascript" src="/assets/unify/plugins/smoothScroll.js"></script>
-<script type="text/javascript" src="/assets/unify/plugins/jquery.parallax.js"></script>
-<!-- JS Customization -->
-<script type="text/javascript" src="/assets/unify/js/custom.js"></script>
-<!-- JS Page Level -->           
-<script type="text/javascript" src="/assets/unify/js/app.js"></script>
-<script type="text/javascript">
+  <!-- JS Global Compulsory -->
+  <script type="text/javascript" src="/assets/jquery/jquery.js"></script>
+  <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.js"></script>
+  <!-- JS Implementing Plugins -->
+  <script type="text/javascript" src="/assets/unify/plugins/back-to-top.js"></script>
+  <!-- JS Customization -->
+  <script type="text/javascript" src="/assets/unify/js/custom.js"></script>
+  <!-- JS Page Level -->
+  <script type="text/javascript" src="/assets/unify/js/app.js"></script>
+  <script type="text/javascript">
     jQuery(document).ready(function() {
         App.init();
-        App.initParallaxBg();  
         });
-</script>
-<!--[if lt IE 9]>
-    <script src="assets/plugins/respond.js"></script>
-    <script src="assets/plugins/html5shiv.js"></script>    
-<![endif]-->
 
+  </script>
 </body>
-</html> 
+
+</html>
