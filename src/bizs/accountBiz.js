@@ -1,14 +1,9 @@
 'use strict';
 
-let cryptoHelper = require('./../common/cryptoHelper');
+let util = require('./../common/util');
 let db = require('./../common/db');
 
 const EXPIRE_LONG_TIME = 1000 * 60 * 60 * 24 * 7; //登录一周过期
-
-let _buildUserToken = (username) => {
-  let key = `${username}_${Date.now()}_${Math.random()}`;
-  return cryptoHelper.hashAlgorithm(key, 'RSA-SHA256');
-};
 
 let _userExists = (username) => {
   return new Promise((resolve, reject) => {
@@ -38,7 +33,7 @@ let doLogin = (req, res, next) => {
       })
     }
     //验证用户密码成功！
-    let token = _buildUserToken(username);
+    let token = util.buildId(username);
     db.users.update({ _id: user._id }, {
       $set: {
         token: token,
@@ -99,7 +94,7 @@ let doRegister = (req, res, next) => {
       if (userExists) {
         return next('User exists.');
       }
-      let userId = _buildUserToken(username);
+      let userId = util.buildId(username);
       db.users.insert({
         userId: userId,
         username: username,

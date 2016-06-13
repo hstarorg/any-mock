@@ -2,8 +2,15 @@
 
 let router = require('express').Router();
 
-let apiBiz = require('./../bizs/apiBiz.js');
+let accountBiz = require('./../bizs/accountBiz');
+let apiBiz = require('./../bizs/apiBiz');
 
-router.post('/new', apiBiz.createApi);
+router.post('/new', accountBiz.setUserInfo, apiBiz.createApi);
+
+router.put('/:apiId', accountBiz.setUserInfo, apiBiz.updateApi);
+
+router.delete('/:apiId', accountBiz.setUserInfo, apiBiz.deleteApi);
+
+router.get('/:appId', accountBiz.setUserInfo, apiBiz.getApi)
 
 module.exports = router;

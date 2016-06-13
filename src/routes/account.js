@@ -2,7 +2,7 @@
 
 let router = require('express').Router();
 
-let accountBiz = require('./../bizs/accountBiz.js');
+let accountBiz = require('./../bizs/accountBiz');
 
 router.post('/login', accountBiz.doLogin);
 

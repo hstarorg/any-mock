@@ -45,6 +45,16 @@
   apiId: string api唯一ID（Hash）
   appId: string 关联App的ID
   userId: string 关联User的ID
-  
+  method: string 请求的类型
+  path: string 请求的路径（支持参数）
+  createDate: long 创建时间
+  reqCount: number 请求次数（默认0）
+  response: {
+    headers: { 响应头
+
+    },
+    statusCode: number 响应状态码,
+    body: string 相应数据。
+  }
 }
 ```

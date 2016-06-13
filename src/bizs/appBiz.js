@@ -1,6 +1,6 @@
 'use strict';
 
-let cryptoHelper = require('./../common/cryptoHelper');
+let util = require('./../common/util');
 let db = require('./../common/db');
 
 let _appExists = (appName, userId) => {
@@ -16,8 +16,7 @@ let _appExists = (appName, userId) => {
 };
 
 let _buildAppId = (userId) => {
-  let key = `${userId}_${Date.now()}_${Math.random()}`;
-  return cryptoHelper.hashAlgorithm(key, 'RSA-SHA256').substring(0, 8);
+  return util.buildId(userId).substring(0, 8);
 };
 
 let createApp = (req, res, next) => {
@@ -42,6 +41,7 @@ let createApp = (req, res, next) => {
         if (err) {
           return next(err);
         }
+        res.status(201);
         res.json("Created");
       });
     }).catch(err => next(err));
