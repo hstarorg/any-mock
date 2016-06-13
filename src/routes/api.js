@@ -7,9 +7,9 @@ let apiBiz = require('./../bizs/apiBiz');
 
 router.post('/new', accountBiz.setUserInfo, apiBiz.createApi);
 
-router.put('/:apiId', accountBiz.setUserInfo, apiBiz.updateApi);
+router.put('/:apiId', accountBiz.setUserInfo, apiBiz.isApiOwner, apiBiz.updateApi);
 
-router.delete('/:apiId', accountBiz.setUserInfo, apiBiz.deleteApi);
+router.delete('/:apiId', accountBiz.setUserInfo, apiBiz.isApiOwner, apiBiz.deleteApi);
 
 router.get('/:appId', accountBiz.setUserInfo, apiBiz.getApi)
 

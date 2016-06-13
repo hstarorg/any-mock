@@ -46,8 +46,10 @@
   appId: string 关联App的ID
   userId: string 关联User的ID
   method: string 请求的类型
+  desc: string 描述信息
   path: string 请求的路径（支持参数）
   createDate: long 创建时间
+  lastUpdateDate: long 最后更新时间
   reqCount: number 请求次数（默认0）
   response: {
     headers: { 响应头

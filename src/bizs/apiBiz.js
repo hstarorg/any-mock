@@ -4,7 +4,20 @@ let util = require('./../common/util');
 let db = require('./../common/db');
 
 let isApiOwner = (req, res, next) => {
-
+  let apiId = req.params.appId;
+  db.apis.findOne({ apiId: apiId }, (err, api) => {
+    if (err) {
+      return next(err);
+    }
+    if (!api) {
+      return next('Api not found.');
+    }
+    if (api.userId !== req.authUser.userId) {
+      return next('Unauthorized, this api is not your\'s.');
+    }
+    this.currentApi = api;
+    next();
+  });
 };
 
 let createApi = (req, res, next) => {
@@ -32,15 +45,47 @@ let createApi = (req, res, next) => {
 };
 
 let updateApi = (req, res, next) => {
-
+  let postData = {
+    $set: {
+      method: req.body.method,
+      desc: req.body.desc,
+      path: req.body.path,
+      lastUpdateDate: Date.now(),
+      reqCount: (req.currentApi.reqCount || 0) + 1,
+      response: req.body.response
+    }
+  };
+  db.apis.update({ _id: req.currentApi._id }, postData, {}, (err, numReplaced) => {
+    if (err) {
+      return next(err);
+    }
+    if (numReplaced === 0) {
+      return next('更新API失败，请联系管理员！');
+    }
+    res.json(true);
+  });
 };
 
 let deleteApi = (req, res, next) => {
-
+  db.apis.remove({ _id: req.currentApi._id }, {}, (err, numReplaced) => {
+    if (err) {
+      return next(err)
+    }
+    if (numReplaced === 0) {
+      return next('删除API失败，请联系管理员！');
+    }
+    res.json(true);
+  });
 };
 
 let getApi = (req, res, next) => {
-
+  let apiId = req.params.appId;
+  db.apis.findOne({ apiId: apiId }, (err, api) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(api);
+  });
 };
 
 module.exports = {
