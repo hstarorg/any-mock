@@ -2,7 +2,7 @@
 
 var http = require('http');
 
-var app = require('./common/app');
+var app = require('./common/expressApp');
 var config = require('./config/config');
 
 var server = http.createServer(app);

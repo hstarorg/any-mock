@@ -1,14 +1,20 @@
 'use strict';
 
-var path = require('path');
+let path = require('path');
+let Datastore = require('nedb');
 
-var Datastore = require('nedb');
+let config = require('./../config/config');
+const db = {};
 
-var config = require('./../config/config');
+let initCollection = (collectionName, autoload) => {
+  return new Datastore({ filename: path.join(config.dbFolderPath, `${collectionName}.db`), autoload: autoload === true });
+};
 
-var db = {};
-db.apis = new Datastore({filename: path.join(config.dbFolderPath, 'apis.db'), autoload: true});
+db.users = initCollection('users', true);
+
+db.apps = initCollection('apps', true);
+
+db.apis = initCollection('apis', true);
+
 
 module.exports = db;
-
-

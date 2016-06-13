@@ -22,7 +22,12 @@ gulp.task('restart', () => {
 });
 
 //监听src目录文件变化（注意不要用./src，否则不能监听新增，改名等变化）
-gulp.task('watch', (callback) => gulp.watch(['src/**/*'], gulp.series('copy', 'restart')));
+gulp.task('watch', (callback) => 
+  gulp.watch([
+    'src/**/*',
+    '!src/database/*.*'
+  ], gulp.series('copy', 'restart'))
+);
 
 //默认任务，入口点（命令： gulp / gulp default）
 //noinspection JSUnresolvedFunction
