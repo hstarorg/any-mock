@@ -1,0 +1,27 @@
+{
+  "name": "any-mock-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jay.M.Hu",
+  "engines": {
+    "node": ">6.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "nedb": "^1.8.0",
+    "node-uuid": "^1.4.7",
+    "rest-express": "^1.1.0"
+  },
+  "devDependencies": {
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-develop-server": "^0.5.2",
+    "node-notifier": "^4.6.1"
+  }
+}
