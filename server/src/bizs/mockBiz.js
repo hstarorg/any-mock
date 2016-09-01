@@ -1,6 +1,6 @@
 'use strict';
 
-var apiCached = require('./../common/apiCached');
+// var apiCached = require('./../common/apiCached');
 
 var matchUri = (req, res, next) => {
   var params = req.params;

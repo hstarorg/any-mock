@@ -47,7 +47,10 @@ let auth = (req, res, next) => {
   let whereObj = { accessToken: token, expiredTime: { $gte: Date.now() } };
   db.users.findOne(whereObj, { password: 0 }, (err, user) => {
     if (err) return next(err);
-    if (!user) return next('401, unauthorized.');
+    if (!user) {
+      res.status(401);
+      return res.end();
+    }
     req.reqData = req.reqData || {};
     req.reqData.user = user;
     next();

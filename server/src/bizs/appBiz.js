@@ -16,7 +16,7 @@ let createApp = (req, res, next) => {
   let userId = req.reqData.user.userId;
   _appExists(userId, appName)
     .then(app => {
-      if(app) return next('app exists.');
+      if (app) return next('app exists.');
       let appEntity = {
         userId: userId,
         appId: util.buildRandomString(),
@@ -45,7 +45,18 @@ let getApp = (req, res, next) => {
     appId: appId,
     userId: req.reqData.user.userId
   }, (err, app) => {
-    if(err) return next(err);
+    if (err) return next(err);
+    res.json(app);
+  });
+};
+
+let getAppApis = (req, res, next) => {
+  let appId = req.params.appId;
+  db.apis.find({
+    appId: appId,
+    userId: req.reqData.user.userId
+  }, (err, app) => {
+    if (err) return next(err);
     res.json(app);
   });
 };
@@ -53,5 +64,6 @@ let getApp = (req, res, next) => {
 module.exports = {
   createApp: createApp,
   getApps: getApps,
-  getApp: getApp
+  getApp: getApp,
+  getAppApis: getAppApis
 };

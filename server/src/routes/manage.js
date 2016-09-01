@@ -11,9 +11,10 @@ router.get('/app/:appId', userBiz.auth, appBiz.getApp);
 
 // API
 router.post('/app/:appId/api', userBiz.auth, apiBiz.validateApi, apiBiz.createApi);
-router.put('/app/:appId/api/:apiId', userBiz.auth, apiBiz.validateApi, apiBiz.updateApi);
+router.get('/app/:appId/api', userBiz.auth, appBiz.getAppApis);
+router.put('/app/:appId/api/:apiId', userBiz.auth, apiBiz.validateApi, apiBiz.findApi, apiBiz.updateApi);
 router.get('/app/:appId/api/:apiId', userBiz.auth, apiBiz.getApi);
-router.delete('/app/:appId/api/:apiId', userBiz.auth, apiBiz.deleteApi);
+router.delete('/app/:appId/api/:apiId', userBiz.auth, apiBiz.findApi, apiBiz.deleteApi);
 
 // Other
 router.post('/login', userBiz.validateUserInfo, userBiz.doLogin);
