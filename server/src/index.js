@@ -1,4 +1,5 @@
 let path = require('path');
+let express = require('express');
 let restExpress = require('rest-express');
 
 let config = require('./config/config');
@@ -9,7 +10,7 @@ let options = {
   enableGzip: true,
   routesPath: path.join(__dirname, 'routes'),
   onRoutesLoading: app => {
-    // console.log('static');
+    app.use('/', express.static(config.staticFolder));
   },
   onRoutesLoaded: app => {
     app.use((req, res, next) => {
