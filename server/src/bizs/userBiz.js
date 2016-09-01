@@ -1,6 +1,8 @@
 let db = require('./../common/db');
 let util = require('./../common/util');
 
+const USER_TOKEN_TIMESPAN = 1000 * 60 * 60 * 7; // 7天
+
 let _getUser = (username) => {
   return new Promise((resolve, reject) => {
     db.users.findOne({ username: username }, (err, user) => {
@@ -58,7 +60,7 @@ let doLogin = (req, res, next) => {
     if (!user) return next('login failed, check your username or password.');
     let accessToken = util.buildToken();
     // 7天
-    db.users.update({ _id: user._id }, { $set: { accessToken: accessToken, expiredTime: Date.now() + 1000 * 60 * 60 * 7 } }, {}, (err, numReplaced) => {
+    db.users.update({ _id: user._id }, { $set: { accessToken: accessToken, expiredTime: Date.now() + USER_TOKEN_TIMESPAN } }, {}, (err, numReplaced) => {
       if (err) return next(err);
       if (numReplaced === 0) return next('login failed, please retry.');
       res.json({ token: accessToken });
@@ -66,9 +68,20 @@ let doLogin = (req, res, next) => {
   });
 };
 
+let doLogout = (req, res, next) => {
+  db.users.update({ _id: req.reqData.user._id }, { $set: { accessToken: '' } }, {}, (err, numReplaced) => {
+    if (err)      return next(err);
+    if (numReplaced === 0) {
+      return next('logout failed, please contact administrator.');
+    }
+    res.json(true);
+  });
+};
+
 module.exports = {
   validateUserInfo: validateUserInfo,
   createUser: createUser,
   doLogin: doLogin,
+  doLogout: doLogout,
   auth: auth
 };
