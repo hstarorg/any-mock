@@ -25,5 +25,5 @@ router.post('/register', userBiz.validateUserInfo, userBiz.createUser);
 module.exports = {
   priority: 1000, // 可选参数，默认0，优先级，越大越先加载 
   router: router, // 必须参数，router对象。 
-  prefix: '/manage' // 可选参数，默认/，router前缀，会拼接在options.apiPrefix之后。 
+  prefix: '/api/v1/manage' // 可选参数，默认/，router前缀，会拼接在options.apiPrefix之后。 
 };

@@ -13,10 +13,9 @@
   userId: string 用户唯一ID（Hash字符串）
   username: string 用户名
   password: string 密码（加密后）
-  registerDate: long 注册时间
-  lastUpdateDate: long 最后更新时间
-  token: string 用户登录token
-  expireDate: long 过期时间
+  createDate: long 注册时间
+  accessToken: string 用户登录token
+  expiredTime: long 过期时间
 }
 ```
 
@@ -28,7 +27,7 @@
 
 ```json
 {
-  appId: string APP唯一ID（Hash字符串，8位）
+  appId: string APP唯一ID（Hash字符串）
   userId: string 关联用户（外键-用户信息表中的userId）
   appName: 项目名称
   appDesc: 项目描述信息

@@ -5,12 +5,18 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+import 'lodash';
+
+import { config } from './config';
+window.AppConf = config;
+ 
 import App from './App';
 
 import Layout from './pages/Layout'
 import Login from './pages/Login';
 import Welcome from './pages/Welcome';
 import AppList from './pages/AppList';
+import ApiList from './pages/ApiList';
 
 let router = new VueRouter({
   saveScrollPosition: true,
@@ -32,6 +38,9 @@ router.map({
       },
       '/api': {
         component: Vue.extend({ template: '404' })
+      },
+      '/app/apis': {
+        component: ApiList
       }
     }
   }

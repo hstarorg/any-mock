@@ -1,7 +1,7 @@
 let db = require('./../common/db');
 let util = require('./../common/util');
 
-const USER_TOKEN_TIMESPAN = 1000 * 60 * 60 * 7; // 7天
+const USER_TOKEN_TIMESPAN = 1000 * 60 * 60 * 24 * 7; // 7天
 
 let _getUser = (username) => {
   return new Promise((resolve, reject) => {
