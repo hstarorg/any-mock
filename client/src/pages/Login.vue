@@ -43,10 +43,22 @@
         remember: false
       };
     },
+    created() {
+      let username = localStorage.getItem('username');
+      if(username){
+        this.user.username = username;
+        this.remember = true;
+      }
+    },
     methods: {
       doLogin() {
         ajax.post(`${AppConf.apiHost}/manage/login`, this.user)
         .then(res => {
+          if(this.remember){
+            localStorage.setItem('username', this.user.username);
+          }else{
+            localStorage.removeItem('username');
+          }
           let data = res.json();
           localStorage.setItem('token', data.token);
           this.$router.go('/');
