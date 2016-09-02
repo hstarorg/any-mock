@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    replace: false,
+    // replace: false,
     data (){
       return {};
     }

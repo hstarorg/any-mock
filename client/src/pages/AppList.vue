@@ -14,7 +14,7 @@
           <th style="width: 80px;" class="text-center">操作</th>
         </tr>
         <tr v-for="app in appList">
-          <td><a v-link="{path: '/app/apis'}">{{app.appName}}</a></td>
+          <td><a v-link="{path: '/app/apis', query: {appId: app.appId}}">{{app.appName}}</a></td>
           <td>{{app.appId}}</td>
           <td class="text-center">
             <div class="btn-group">
@@ -34,13 +34,13 @@
       </div>
     </div>
 
-    <modal :show.sync="appDialogShown">
+    <modal :show.sync="appDialogShown" :width="400" :backdrop="false" effect="zoom">
       <div slot="modal-header" class="modal-header">
         <h4 class="modal-title">创建新应用</h4>
       </div>
       <div slot="modal-body" class="modal-body">
         <form>
-          <div class="form-group">
+          <div class="form-group form-group-sm">
             <label class="control-label">应用名称</label>
             <input type="text" class="form-control" v-model="updateAppEntity.appName">
           </div>
@@ -48,8 +48,8 @@
         </form>
       </div>
       <div slot="modal-footer" class="modal-footer">
-        <button type="button" class="btn btn-default" @click="appDialogShown = false">取消</button>
-        <button type="button" class="btn btn-success" @click="saveApp()">保存</button>
+        <button type="button" class="btn btn-sm btn-default" @click="appDialogShown = false">取消</button>
+        <button type="button" class="btn btn-sm btn-success" @click="saveApp()">保存</button>
       </div>
     </modal>
   </div>

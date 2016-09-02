@@ -34,6 +34,7 @@ router.map({
         component: Welcome
       },
       '/app': {
+        name: 'app',
         component: AppList
       },
       '/api': {
@@ -56,4 +57,4 @@ router.beforeEach(transition => {
   transition.next();
 });
 
-router.start(App, document.body);
+router.start(App, document.querySelector('body > div'));

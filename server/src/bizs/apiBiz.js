@@ -12,7 +12,7 @@ let _hasAuth = (userId, appId) => {
 };
 
 let validateApi = (req, res, next) => {
-  let properties = ['appName', 'apiPath', 'apiMethod', 'responseHeaders', 'responseStatus', 'responseContentType'];
+  let properties = ['apiName', 'apiPath', 'apiMethod', 'responseHeaders', 'responseStatus', 'responseContentType'];
   for (let p of properties) {
     if (!req.body[p]) {
       return next(`${p} required`);
@@ -26,9 +26,9 @@ let findApi = (req, res, next) => {
   let apiId = req.params.apiId;
   let userId = req.reqData.user.userId;
   let whereObj = { userId: userId, appId: appId, apiId: apiId };
-  db.apps.findOne(whereObj, (err, app) => {
+  db.apis.findOne(whereObj, (err, api) => {
     if (err) return next(err);
-    if (!app) {
+    if (!api) {
       res.status(404);
       return res.end();
     }
@@ -48,7 +48,7 @@ let createApi = (req, res, next) => {
         userId: userId,
         createDate: Date.now(),
         apiId: util.buildRandomString(),
-        apiName: body.appName,
+        apiName: body.apiName,
         apiPath: body.apiPath,
         apiMethod: body.apiMethod,
         responseHeaders: body.responseHeaders,
@@ -68,11 +68,12 @@ let createApi = (req, res, next) => {
 let updateApi = (req, res, next) => {
   let appId = req.params.appId;
   let userId = req.reqData.user.userId;
+  let apiId = req.params.apiId;
   let body = req.body;
 
   let updateEntity = {
     $set: {
-      apiName: body.appName,
+      apiName: body.apiName,
       apiPath: body.apiPath,
       apiMethod: body.apiMethod,
       responseHeaders: body.responseHeaders,
@@ -82,7 +83,8 @@ let updateApi = (req, res, next) => {
       isEnable: !!body.isEnable
     }
   };
-  db.apis.update({ appId: appId, apiId: appId }, updateEntity, {}, (err, numReplaced) => {
+  console.log(updateEntity);
+  db.apis.update({ appId: appId, apiId: apiId }, updateEntity, {}, (err, numReplaced) => {
     if (err) return next(err);
     if (numReplaced === 0) return next('update failed, please retry');
     res.status(202);
