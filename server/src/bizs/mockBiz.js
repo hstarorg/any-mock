@@ -17,7 +17,8 @@ var matchUri = (req, res, next) => {
         req.reqData = req.reqData || {};
         req.reqData.api = {
           apiId: api.apiId,
-          matchResultArr: matchResultArr
+          matchResultArr: matchResultArr,
+          keys: keys
         };
         return next();
       }
@@ -29,9 +30,9 @@ var matchUri = (req, res, next) => {
 
 var responseData = (req, res, next) => {
   let reqApi = req.reqData.api;
+  // console.log(reqApi.matchResultArr, reqApi.keys);
   db.apis.findOne({ apiId: reqApi.apiId }, (err, api) => {
     if (err) return next(err);
-    console.log(api);
     if (api.responseHeaders && api.responseHeaders.length > 0) {
       api.responseHeaders.forEach(header => {
         res.header(header.name, header.value);
