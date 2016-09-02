@@ -65,7 +65,7 @@
               </ul>
             </div>
             <div class="input-group-addon">
-              http://10.1.54.111:8513/
+              {{mockApiHost}}
             </div>
             <input type="text" class="form-control" v-model="apiEntity.apiPath">
           </div>
@@ -138,6 +138,7 @@
     },
     data() {
       return {
+        appId: '',
         appName: '',
         apiTotal: 0,
         apiList: [],
@@ -148,6 +149,11 @@
         apiEntity: this.createEmptyApi(),
         customContentType: false
       };
+    },
+    computed: {
+      mockApiHost() {
+        return `${AppConf.mockApiHost}/${this.appId}`;
+      }
     },
     route: {
       canActivate(transition){
@@ -169,7 +175,6 @@
     methods: {
       createEmptyApi() {
         return {
-          appId: '',
           apiName: '',
           apiMethod: 'GET',
           responseHeaders: [

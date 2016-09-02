@@ -1,43 +1,46 @@
-'use strict';
-
-// var apiCached = require('./../common/apiCached');
+let pathToRegexp = require('path-to-regexp');
+let db = require('./../common/db');
 
 var matchUri = (req, res, next) => {
-  var params = req.params;
-  //noinspection JSUnresolvedVariable
-  var appId = params.appId;
-  var other = params['0'].replace(/\/*$/g, '');
-  var parts = other.split('/');
-  apiCached.get(appId)
-    .then((apis) => {
-      var matchedAPIs = [];
-      var sameAPI = null;
-      var route = `/${other}`;
-      for(let api of apis){
-        if(api.route === route){
-          sameAPI = api;
-          break;
-        }
-        if(api.segmentsNumber === parts.length){
-          matchedAPIs.push(api);
-        }
+  let appId = req.params.appId;
+  let path = req.url.replace(`\/${appId}`, '');
+  db.apis.find({ appId: appId }, { _id: 0, apiId: 1, apiPath: 1, apiMethod: 1 }, (err, apis) => {
+    if (err) return next(err);
+    for (let api of apis) {
+      if (api.apiMethod.toUpperCase() !== req.method) {
+        continue;
       }
-      if(sameAPI){
-        req.apiObj = {};
-        req.apiObj.body = sameAPI;
+      let keys = [];
+      let re = pathToRegexp(api.apiPath, keys);
+      let matchResultArr = re.exec(path);
+      if (matchResultArr && matchResultArr.length > 0) {
+        req.reqData = req.reqData || {};
+        req.reqData.api = {
+          apiId: api.apiId,
+          matchResultArr: matchResultArr
+        };
+        return next();
       }
-      next();
-    })
-    .catch((error) => {
-      next(error);
-    });
+    }
+    res.status(404);
+    res.end();
+  });
 };
 
-var responseData = (req, res) => {
-  if(req.apiObj){
-    return res.send(req.apiObj.body);
-  }
-  res.send('xxx');
+var responseData = (req, res, next) => {
+  let reqApi = req.reqData.api;
+  db.apis.findOne({ apiId: reqApi.apiId }, (err, api) => {
+    if (err) return next(err);
+    console.log(api);
+    if (api.responseHeaders && api.responseHeaders.length > 0) {
+      api.responseHeaders.forEach(header => {
+        res.header(header.name, header.value);
+      });
+    }
+    res.header('Content-Type', api.responseContentType);
+    res.status(api.responseStatus);
+    res.send(api.responseData);
+  });
 };
 
 module.exports = {
