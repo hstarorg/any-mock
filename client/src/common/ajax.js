@@ -2,7 +2,7 @@ import Vue from 'vue';
 let buildOptions = (options) => {
   let opt = _.extend({}, options);
   opt.headers = opt.headers || {};
-  opt.headers['x-token'] = '866f569f-ed2a-4309-b853-3804b8cfe35a';
+  opt.headers['x-token'] = localStorage.getItem('token');
   return opt;
 };
 
