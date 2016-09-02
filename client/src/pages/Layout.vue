@@ -30,7 +30,8 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0);">欢迎您：{{username}}</a></li>
+            <li><a href="javascript:void(0);">欢迎您！</a></li>
+            <li @click="doLogout()"><a href="javascript:void(0);">退出</a></li>
           </ul>
         </nav>
       </div>
@@ -42,5 +43,12 @@
 </template>
 
 <script>
-  export default {};
+  export default {
+    methods: {
+      doLogout() {
+        localStorage.removeItem('token');
+        this.$router.go('/login');
+      }
+    }
+  };
 </script>

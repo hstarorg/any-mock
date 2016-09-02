@@ -25,6 +25,9 @@ let request = (type, url, data, options) => {
     p.then(res => {
       resolve(res);
     }).catch(res => {
+      if(res.status === 401){
+        localStorage.setItem('logout', true);
+      }
       if (!opt.disabledGlobalException) {
         layer.msg(`【${res.status}】${res.statusText}(${res.json().error})`);
       }

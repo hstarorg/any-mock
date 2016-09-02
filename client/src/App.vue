@@ -11,6 +11,8 @@
     // replace: false,
     data (){
       return {};
+    },
+    created() {
     }
   };
 </script>

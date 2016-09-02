@@ -9,7 +9,7 @@ import 'lodash';
 
 import { config } from './config';
 window.AppConf = config;
- 
+
 import App from './App';
 
 import Layout from './pages/Layout'
@@ -31,25 +31,31 @@ router.map({
     component: Layout,
     subRoutes: {
       '/': {
-        component: Welcome
+        component: Welcome,
+        auth: true
       },
       '/app': {
         name: 'app',
-        component: AppList
+        component: AppList,
+        auth: true
       },
       '/api': {
-        component: Vue.extend({ template: '404' })
+        component: Vue.extend({ template: '404' }),
+        auth: true
       },
       '/app/apis': {
-        component: ApiList
+        component: ApiList,
+        auth: true
       }
     }
   }
 });
 
 router.beforeEach(transition => {
-  if (transition.to.path !== '/login') {
-    if (!localStorage.getItem('token')) {
+  if (transition.to.auth) {
+    if (!localStorage.getItem('token') || localStorage.getItem('logout')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('logout');
       transition.abort();
       router.go('/login');
     }

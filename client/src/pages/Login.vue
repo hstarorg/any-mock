@@ -1,6 +1,6 @@
 <style scoped>
-  .login-panel{
-    margin-top: 20%;
+  .login-panel {
+    margin-top: calc(50vh - 150px);
   }
 </style>
 
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+  import { ajax } from './../common';
   export default {
     data() {
       return {
@@ -44,8 +45,12 @@
     },
     methods: {
       doLogin() {
-        localStorage.setItem('token', 'xxx');
-        this.$router.go('/');
+        ajax.post(`${AppConf.apiHost}/manage/login`, this.user)
+        .then(res => {
+          let data = res.json();
+          localStorage.setItem('token', data.token);
+          this.$router.go('/');
+        });
       }
     }
   };

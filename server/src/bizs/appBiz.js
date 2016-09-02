@@ -55,7 +55,7 @@ let getAppApis = (req, res, next) => {
   db.apis.find({
     appId: appId,
     userId: req.reqData.user.userId
-  }, (err, app) => {
+  }).sort({ createDate: 1 }).exec((err, app) => {
     if (err) return next(err);
     res.json(app);
   });
