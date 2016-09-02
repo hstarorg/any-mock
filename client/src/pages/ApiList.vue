@@ -216,7 +216,7 @@
             this.loadApiData();
           });
         }else{ // Add
-          ajax.post(`${AppConf.apiHost}/manage/app/0a944b1b5af3/api`, this.apiEntity)
+          ajax.post(`${AppConf.apiHost}/manage/app/${this.appId}/api`, this.apiEntity)
           .then(res => {
             this.apiDialogShown = false;
             layer.msg('添加API成功！');
