@@ -2,13 +2,15 @@
   .app-layout {
     margin-top: 60px;
   }
+  
   .app-layout .container {
     position: relative;
   }
-  .app-layout .container > .animated{
+  
+  .app-layout .container > .animated {
     position: absolute;
     right: 15px;
-    left: 15px;    
+    left: 15px;
   }
 </style>
 
@@ -27,14 +29,14 @@
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
-            <li class="active">
-              <a v-link="{path: '/'}">欢迎</a>
+            <li v-link="{path: '/', exact: true, activeClass: 'active'}">
+              <a>欢迎</a>
             </li>
-            <li>
-              <a v-link="{path: '/app'}">我的应用</a>
+            <li v-link="{path: '/app', activeClass: 'active'}">
+              <a>我的应用</a>
             </li>
-            <li>
-              <a v-link="{path: '/search'}">搜索API</a>
+            <li v-link="{path: '/search', activeClass: 'active'}">
+              <a>搜索API</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -52,7 +54,13 @@
 </template>
 
 <script>
+  import { eventBus } from './../common';
   export default {
+    data() {
+      return {
+        abc: 'test'
+      };
+    },
     methods: {
       doLogout() {
         localStorage.removeItem('token');

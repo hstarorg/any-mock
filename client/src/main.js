@@ -19,6 +19,7 @@ import Login from './pages/Login';
 import Welcome from './pages/Welcome';
 import AppList from './pages/AppList';
 import ApiList from './pages/ApiList';
+import Search from './pages/Search';
 
 let router = new VueRouter({
   saveScrollPosition: true,
@@ -48,6 +49,9 @@ router.map({
       '/app/apis': {
         component: ApiList,
         auth: true
+      },
+      '/search': {
+        component: Search
       }
     }
   }
