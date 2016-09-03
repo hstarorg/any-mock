@@ -2,6 +2,9 @@
   .op {
     vertical-align: middle;
   }
+  .well.well-sm{
+    margin-bottom: 10px;
+  }
 </style>
 
 <template>

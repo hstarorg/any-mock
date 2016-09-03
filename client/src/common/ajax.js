@@ -25,8 +25,12 @@ let request = (type, url, data, options) => {
     p.then(res => {
       resolve(res);
     }).catch(res => {
-      if(res.status === 401){
-        localStorage.setItem('logout', true);
+      if (res.status === 401) {
+        layer.closeAll();
+        let layerId = layer.msg('授权已过期，请重新登录', {icon: 3, title: '警告'}, () => {
+          layer.close(layerId);
+          Vue.$router.go('/login');
+        });
       }
       if (!opt.disabledGlobalException) {
         layer.msg(`【${res.status}】${res.statusText}(${res.json().error})`);

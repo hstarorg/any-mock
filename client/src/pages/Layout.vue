@@ -1,6 +1,14 @@
-<style scoped>
+<style>
   .app-layout {
     margin-top: 60px;
+  }
+  .app-layout .container {
+    position: relative;
+  }
+  .app-layout .container > .animated{
+    position: absolute;
+    right: 15px;
+    left: 15px;    
   }
 </style>
 
@@ -37,7 +45,8 @@
       </div>
     </header>
     <div class="container">
-      <router-view></router-view>
+      <router-view class="animated" transition="flipOutY">
+      </router-view>
     </div>
   </div>
 </template>

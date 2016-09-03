@@ -5,6 +5,11 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+Vue.transition('flipOutY', {
+  enterClass: 'fadeInRightBig',
+  leaveClass: 'fadeOutLeftBig'
+});
+
 import 'lodash';
 
 import { config } from './config';
@@ -62,5 +67,7 @@ router.beforeEach(transition => {
   }
   transition.next();
 });
+
+Vue.$router = router;
 
 router.start(App, document.querySelector('body > div'));
