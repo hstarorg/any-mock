@@ -5,15 +5,12 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
-Vue.transition('flipOutY', {
+Vue.transition('fadeBig', {
   enterClass: 'fadeInRightBig',
   leaveClass: 'fadeOutLeftBig'
 });
 
 import 'lodash';
-
-import { config } from './config';
-window.AppConf = config;
 
 import App from './App';
 

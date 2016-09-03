@@ -45,7 +45,7 @@
       </div>
     </header>
     <div class="container">
-      <router-view class="animated" transition="flipOutY">
+      <router-view class="animated" transition="fadeBig">
       </router-view>
     </div>
   </div>
