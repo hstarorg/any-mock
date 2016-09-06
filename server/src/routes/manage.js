@@ -4,10 +4,18 @@ let userBiz = require('./../bizs/userBiz');
 let appBiz = require('./../bizs/appBiz');
 let apiBiz = require('./../bizs/apiBiz');
 
+// 之后的API可直接访问reqData
+router.use((req, res, next) => {
+  req.reqData = req.reqData || {};
+  next();
+});
+
 // App
 router.post('/app', userBiz.auth, appBiz.createApp);
 router.get('/app', userBiz.auth, appBiz.getApps);
 router.get('/app/:appId', userBiz.auth, appBiz.getApp);
+router.put('/app/:appId', userBiz.auth, appBiz.hasAppAuth, appBiz.updateApp);
+router.delete('/app/:appId', userBiz.auth, appBiz.hasAppAuth, appBiz.deleteApp);
 
 // API
 router.post('/app/:appId/api', userBiz.auth, apiBiz.validateApi, apiBiz.createApi);

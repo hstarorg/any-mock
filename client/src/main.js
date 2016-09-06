@@ -1,3 +1,5 @@
+import './css/layout.css';
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
@@ -20,6 +22,7 @@ import Welcome from './pages/Welcome';
 import AppList from './pages/AppList';
 import ApiList from './pages/ApiList';
 import Search from './pages/Search';
+import Register from './pages/Register';
 
 let router = new VueRouter({
   saveScrollPosition: true,
@@ -29,6 +32,9 @@ let router = new VueRouter({
 router.map({
   '/login': {
     component: Login
+  },
+  '/register': {
+    component: Register
   },
   '/': {
     component: Layout,

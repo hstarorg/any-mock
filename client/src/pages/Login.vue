@@ -2,6 +2,9 @@
   .login-panel {
     margin-top: calc(50vh - 150px);
   }
+  .redirect-register{
+    font-size: 12px;
+  }
 </style>
 
 <template>
@@ -23,6 +26,10 @@
                 </label>
               </div>
               <button class="btn btn-danger btn-block" type="submit" @click.prevent="doLogin()">登&nbsp;录</button>
+              <br>
+              <div class="redirect-register">
+                还没有账户？<a href="javascript:void(0)" v-link="{path: '/register'}">点此</a> 注册
+              </div>
             </form>
           </div>
         </div>

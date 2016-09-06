@@ -19,13 +19,15 @@
         <tr>
           <th style="width: 300px;">API名称</th>
           <th>API PATH</th>
-          <th style="width:60px;">状态码</th>
+          <th style="width:60px;" class="text-center">状态码</th>
+          <th style="width: 50px;" class="text-center">可用</th>
           <th style="width: 80px;" class="text-center">操作</th>
         </tr>
         <tr v-for="api in apiList">
           <td><a>{{api.apiName}}</a></td>
           <td><span class="label label-danger">{{api.apiMethod}}</span> {{api.apiPath}}</td>
           <td class="text-center">{{api.responseStatus}}</td>
+          <td class="text-center"><input type="checkbox" disabled v-model="api.isEnable"></td>
           <td class="text-center">
             <div class="btn-group">
               <button title="编辑" class="btn btn-info btn-xs" @click="showEditApiDialog(api)"><i class="fa fa-edit"></i></button>
@@ -73,6 +75,7 @@
             <input type="text" class="form-control" v-model="apiEntity.apiPath">
           </div>
         </div>
+        <div class="well well-sm">Final Address: <span class="text-danger">{{mockApiHost + apiEntity.apiPath}}</span></div>
         <div class="form-group form-group-sm">
           <label class="control-label">Response Headers</label>
           <table class="table table-condensed">
@@ -103,7 +106,7 @@
             <div class="input-group-btn">
               <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 style="width: 88px">
-                {{apiEntity.apiMethod}} <span class="caret"></span>
+               Choose <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
                 <li v-for="c in contentTypeList">

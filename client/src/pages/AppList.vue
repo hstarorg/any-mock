@@ -36,13 +36,13 @@
 
     <modal :show.sync="appDialogShown" :width="400" :backdrop="false" effect="zoom">
       <div slot="modal-header" class="modal-header">
-        <h4 class="modal-title">创建新应用</h4>
+        <h4 class="modal-title">{{dialogTitle}}</h4>
       </div>
       <div slot="modal-body" class="modal-body">
         <form>
           <div class="form-group form-group-sm">
             <label class="control-label">应用名称</label>
-            <input type="text" class="form-control" v-model="updateAppEntity.appName">
+            <input type="text" class="form-control" v-model="appEntity.appName">
           </div>
 
         </form>
@@ -66,15 +66,18 @@
       return {
         appList: [],
         appDialogShown: false,
-        updateAppEntity: {
-          appName: ''
-        }
+        appEntity: this.createEmptyApp()
       };
     },
     created() {
       this.loadAppData();
     },
     methods: {
+      createEmptyApp() {
+        return {
+          appName: ''
+        };
+      },
       loadAppData() {
         ajax.get(`${AppConf.apiHost}/manage/app`)
         .then(res => {
@@ -82,24 +85,35 @@
         });
       },
       showCreateAppDialog(){
+        this.appEntity = this.createEmptyApp();
         this.appDialogShown = true;
       },
       showEditAppDialog(app) {
-        alert('暂无实现');
+        this.appEntity = _.cloneDeep(app);
+        this.appDialogShown = true;
       },
       saveApp(){
         let appName = this.updateAppEntity.appName;
         ajax.post(`${AppConf.apiHost}/manage/app`, {appName: appName})
         .then(res => {
-          layer.msg('保存成功！');
+          layer.msg('Save successfully.');
           this.appDialogShown = false;
           this.loadAppData();
         });
       },
       confirmDeleteApp(app) {
-        let layerId = layer.confirm(`确实要删除应用【${app.appName}】么？`,{title: '请确认'}, () => {
-          alert('delete'+ app.appName);
+        let layerId = layer.confirm(`Would you want to delete app [${app.appName}]?<br>App apis will be deleted together.`, {title: 'Are you sure?'}, () => {
+          ajax.delete(`${AppConf.apiHost}/manage/app/${app.appId}`)
+          .then(res => {
+            layer.close(layerId);
+            this.loadAppData();
+          });
         });        
+      }
+    },
+    computed: {
+      dialogTitle(){
+        return this.appEntity.appId ? `更新应用【${this.appEntity.appName}】`: '创建新应用';
       }
     }
   };

@@ -61,9 +61,52 @@ let getAppApis = (req, res, next) => {
   });
 };
 
+let hasAppAuth = (req, res, next) => {
+  let appId = req.params.appId;
+  db.apps.findOne({ appId: appId }, (err, app) => {
+    if (err) return next(err);
+    if (!app) return next(new Error('app not exists.'));
+    if (app.userId !== req.reqData.user.userId) {
+      return next(new Error('Permission denied'));
+    }
+    req.reqData.app = app;
+    next();
+  });
+};
+
+let deleteApp = (req, res, next) => {
+  let appId = req.reqData.app.appId;
+  db.apps.remove({ appId: appId }, (err, numRemoved) => {
+    if (err) return next(err);
+    if (numRemoved === 0) return next(new Error('Delete failed, please retry.'));
+    db.apis.remove({ appId: appId });
+    res.status(204);
+    res.end();
+  });
+};
+
+let updateApp = (req, res, next) => {
+  let appId = req.reqData.app.appId;
+  let appName = req.body.appName;
+  let updateObj = {
+    $set: {
+      appName: appName
+    }
+  };
+  db.apps.update({ appId: appId }, updateObj, {}, (err, numReplaced) => {
+    if (err) return next(err);
+    if (numReplaced === 0) return next(new Error('update failed, please retry.'));
+    res.status(202);
+    res.end();
+  });
+};
+
 module.exports = {
   createApp: createApp,
   getApps: getApps,
   getApp: getApp,
-  getAppApis: getAppApis
+  getAppApis: getAppApis,
+  hasAppAuth: hasAppAuth,
+  deleteApp: deleteApp,
+  updateApp: updateApp
 };

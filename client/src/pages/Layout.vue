@@ -30,13 +30,13 @@
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
             <li v-link="{path: '/', exact: true, activeClass: 'active'}">
-              <a>欢迎</a>
+              <a href="javascript:void(0);">欢迎</a>
             </li>
             <li v-link="{path: '/app', activeClass: 'active'}">
-              <a>我的应用</a>
+              <a href="javascript:void(0);">我的应用</a>
             </li>
             <li v-link="{path: '/search', activeClass: 'active'}">
-              <a>搜索API</a>
+              <a href="javascript:void(0);">搜索API</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
