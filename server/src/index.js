@@ -21,10 +21,11 @@ let options = {
 
     app.use((err, req, res, next) => {
       res.status(err.status || 500);
-      res.json({
-        message: err.message,
+      let errResult = {
+        message: (err instanceof Error) ? err.message : err,
         error: config.debug ? err : null
-      });
+      };
+      res.json(errResult);
     });
   }
 };

@@ -59,6 +59,9 @@
     },
     methods: {
       doLogin() {
+        if(!this.user.username || !this.user.password){
+          return layer.msg('username and password required.');
+        }
         ajax.post(`${AppConf.apiHost}/manage/login`, this.user)
         .then(res => {
           if(this.remember){

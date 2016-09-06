@@ -16,7 +16,7 @@ let createUser = (req, res, next) => {
   let body = req.body;
   _getUser(body.username)
     .then(user => {
-      if (user) return next('user exists.');
+      if (user) return next(new Error('user exists.'));
       let userEntity = {
         userId: util.buildRandomString(),
         username: body.username,
@@ -36,7 +36,7 @@ let createUser = (req, res, next) => {
 
 let validateUserInfo = (req, res, next) => {
   if (!req.body.username || !req.body.password) {
-    return next('username and password required.');
+    return next(new Error('username and password required.'));
   }
   next();
 };

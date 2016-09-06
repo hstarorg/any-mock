@@ -27,13 +27,14 @@ let request = (type, url, data, options) => {
     }).catch(res => {
       if (res.status === 401) {
         layer.closeAll();
-        let layerId = layer.msg('授权已过期，请重新登录', {icon: 3, title: '警告'}, () => {
+        let layerId = layer.msg('授权已过期，请重新登录', { icon: 3, title: '警告' }, () => {
           layer.close(layerId);
           Vue.$router.go('/login');
         });
       }
       if (!opt.disabledGlobalException) {
-        layer.msg(`【${res.status}】${res.statusText}(${res.json().error})`);
+        let error = res.json() || { message: '' };
+        layer.msg(`【${res.status}】${res.statusText}(${error.message})`);
       }
       reject(res);
     });

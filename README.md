@@ -1,7 +1,7 @@
 # any-mock
 A configurable mock server,help you mock APIs.
 
-# any-mock-server
+# /server
 
 ``any-mock`` server, provider config manage and api mock support.
 
@@ -10,7 +10,7 @@ The project based on [rest-express](https://github.com/hstarorg/rest-express) an
 See detail: [any-mock-server](server)
 
 
-# any-mock-client
+# /client
 
 A graphic interface for ``any-mock``.
 
