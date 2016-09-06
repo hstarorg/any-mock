@@ -7,11 +7,11 @@ A configurable mock server,help you mock APIs.
 
 The project based on [rest-express](https://github.com/hstarorg/rest-express) and ``nedb``.
 
-See detail: [any-mock-server](any-mock-server)
+See detail: [any-mock-server](server)
 
 
 # any-mock-client
 
 A graphic interface for ``any-mock``.
 
-See detail: [any-mock-click](any-mock-client).
+See detail: [any-mock-click](client).
