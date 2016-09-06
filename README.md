@@ -3,8 +3,15 @@ A configurable mock server,help you mock APIs.
 
 # any-mock-server
 
-``any-mock`` 的服务端，提供配置管理和API模拟功能
+``any-mock`` server, provider config manage and api mock support.
+
+The project based on [rest-express](https://github.com/hstarorg/rest-express) and ``nedb``.
+
+See detail: [any-mock-server](any-mock-server)
+
 
 # any-mock-client
 
-``any-mock`` 的配置端，提供配置数据。
+A graphic interface for ``any-mock``.
+
+See detail: [any-mock-click](any-mock-client).
