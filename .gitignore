@@ -3,6 +3,7 @@
 .idea/
 typings/
 bower_components/
+/server/src/database/
 
 
 # Logs
