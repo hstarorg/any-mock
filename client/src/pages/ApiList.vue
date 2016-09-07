@@ -25,7 +25,7 @@
           <th style="width: 80px;" class="text-center">Operate</th>
         </tr>
         <tr v-for="api in apiList">
-          <td><a>{{api.apiName}}</a></td>
+          <td>{{api.apiName}}</td>
           <td><span class="label label-danger">{{api.apiMethod}}</span> {{api.apiPath}}</td>
           <td class="text-center">{{api.responseStatus}}</td>
           <td class="text-center"><input type="checkbox" disabled v-model="api.isEnable"></td>
