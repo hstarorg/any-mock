@@ -72,7 +72,8 @@
       return {
         appList: [],
         appDialogShown: false,
-        appEntity: this.createEmptyApp()
+        appEntity: this.createEmptyApp(),
+        dialogTitle: ''
       };
     },
     created() {
@@ -93,11 +94,13 @@
       },
       showCreateAppDialog(){
         this.appEntity = this.createEmptyApp();
+        this.dialogTitle = 'Create new app';
         this.appDialogShown = true;
       },
       showEditAppDialog(app) {
         this.appEntity = _.cloneDeep(app);
         this.appEntity.authorizedUserStr = (this.appEntity.authorizedUser || []).join(',');
+        this.dialogTitle = `Update app [${this.appEntity.appName}]`;
         this.appDialogShown = true;
       },
       saveApp(){
@@ -127,11 +130,6 @@
             this.loadAppData();
           });
         });        
-      }
-    },
-    computed: {
-      dialogTitle(){
-        return this.appEntity.appId ? `Update app [${this.appEntity.appName}]`: 'Create new app';
       }
     }
   };

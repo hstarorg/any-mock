@@ -51,13 +51,18 @@ let getApps = (req, res, next) => {
 
 let getApp = (req, res, next) => {
   let appId = req.params.appId;
-  db.apps.findOne({
+  let user = req.reqData.user;
+  let filterObj = {
     appId: appId,
-    userId: req.reqData.user.userId
-  }, (err, app) => {
-    if (err) return next(err);
-    res.json(app);
-  });
+    $or: [
+      { userId: user.userId },
+      { authorizedUser: { $elemMatch: user.username } }
+    ]
+  };
+  db.findOne('apps', filterObj)
+    .then(app => {
+      res.json(app);
+    }).catch(reason => next(reason));
 };
 
 let getAppApis = (req, res, next) => {

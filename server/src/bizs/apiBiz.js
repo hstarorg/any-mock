@@ -1,13 +1,18 @@
 let db = require('./../common/db');
 let util = require('./../common/util');
 
-let _hasAuth = (userId, appId) => {
+let _hasAuth = (appId, userId, username) => {
   return new Promise((resolve, reject) => {
-    let whereObj = { userId: userId, appId: appId };
-    db.apps.findOne(whereObj, (err, app) => {
-      if (err) return reject(err);
-      resolve(!!app);
-    });
+    let filterObj = {
+      appId: appId,
+      $or: [
+        { userId: userId },
+        { authorizedUser: { $elemMatch: username } }
+      ]
+    };
+    db.findOne('apps', filterObj)
+      .then(app => resolve(!!app))
+      .catch(reason => reject(reason));
   });
 };
 
@@ -24,23 +29,30 @@ let validateApi = (req, res, next) => {
 let findApi = (req, res, next) => {
   let appId = req.params.appId;
   let apiId = req.params.apiId;
-  let userId = req.reqData.user.userId;
-  let whereObj = { userId: userId, appId: appId, apiId: apiId };
-  db.apis.findOne(whereObj, (err, api) => {
-    if (err) return next(err);
-    if (!api) {
-      res.status(404);
-      return res.end();
-    }
-    next();
-  });
+  let user = req.reqData.user;
+  _hasAuth(appId, user.userId, user.username)
+    .then(isAuthed => {
+      if (!isAuthed) {
+        res.status(401);
+        return res.end();
+      }
+      db.findOne('apis', { apiId: apiId })
+        .then(api => {
+          if (!api) {
+            res.status(404);
+            return res.end();
+          }
+          req.reqData.api = api;
+          next();
+        }).catch(reason => next(reason));
+    });
 };
 
 let createApi = (req, res, next) => {
   let appId = req.params.appId;
   let userId = req.reqData.user.userId;
   let body = req.body;
-  _hasAuth(userId, appId)
+  _hasAuth(appId, userId, req.reqData.user.username)
     .then(isAuthorized => {
       if (!isAuthorized) return next('unauthorized.');
       let apiEntity = {
@@ -66,8 +78,6 @@ let createApi = (req, res, next) => {
 };
 
 let updateApi = (req, res, next) => {
-  let appId = req.params.appId;
-  let userId = req.reqData.user.userId;
   let apiId = req.params.apiId;
   let body = req.body;
 
@@ -83,8 +93,8 @@ let updateApi = (req, res, next) => {
       isEnable: !!body.isEnable
     }
   };
-  console.log(updateEntity);
-  db.apis.update({ appId: appId, apiId: apiId }, updateEntity, {}, (err, numReplaced) => {
+
+  db.apis.update({ apiId: apiId }, updateEntity, {}, (err, numReplaced) => {
     if (err) return next(err);
     if (numReplaced === 0) return next('update failed, please retry');
     res.status(202);
@@ -93,28 +103,17 @@ let updateApi = (req, res, next) => {
 };
 
 let getApi = (req, res, next) => {
-  let appId = req.params.appId;
-  let apiId = req.params.apiId;
-  let userId = req.reqData.user.userId;
-  db.apis.findOne({ userId: userId, appId: appId, apiId: apiId }, (err, api) => {
-    if (err) return next(err);
-    res.json(api);
-  });
+  return req.reqData.api;
 };
 
 let deleteApi = (req, res, next) => {
-  let appId = req.params.appId;
   let apiId = req.params.apiId;
-  let userId = req.reqData.user.userId;
-  _hasAuth(userId, appId, apiId)
-    .then(isFound => {
-      if (!isFound) return next('api not found.');
-      db.apis.remove({ userId: userId, appId: appId, apiId: apiId }, (err, numRemoved) => {
-        if (err) return next(err);
-        if (numRemoved === 0) return next('Delete failed, please retry.');
-        res.json(true);
-      }).catch(reason => next(reason));
-    });
+  db.remove('apis', { _id: req.reqData.api._id })
+    .then(numRemoved => {
+      if (numRemoved === 0) return next('Delete failed, please retry.');
+      res.json(true);
+    })
+    .catch(reason => next(reason));
 };
 
 module.exports = {

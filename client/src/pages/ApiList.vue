@@ -20,7 +20,7 @@
         <tr>
           <th style="width: 300px;">API Name</th>
           <th>API Path</th>
-          <th style="width:60px;" class="text-center">Status Code</th>
+          <th style="width:100px;" class="text-center">StatusCode</th>
           <th style="width: 50px;" class="text-center">Enable</th>
           <th style="width: 80px;" class="text-center">Operate</th>
         </tr>
