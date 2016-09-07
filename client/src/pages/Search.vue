@@ -1,5 +1,7 @@
 <template>
-  <div class="app-search"></div>
+  <div class="app-search">
+    Please waiting...
+  </div>
 </template>
 
 <script>

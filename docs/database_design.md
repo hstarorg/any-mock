@@ -32,6 +32,11 @@
   appName: 项目名称
   appDesc: 项目描述信息
   createDate: long 创建时间
+  authorizedUser: string  授权用户列表
+  // authorizedUser: {
+  //   userId: string,
+  //   permission: number // 类似于Linux的权限代码，一共二个权限，继承到API（管理， 查看），如果都有，则11。
+  // }
 }
 ```
 

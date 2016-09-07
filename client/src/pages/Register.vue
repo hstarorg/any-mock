@@ -13,20 +13,20 @@
       <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4 register-panel">
         <div class="panel panel-info">
           <div class="panel-heading text-center">
-            注册Any-Mock
+            Register To Any-Mock
           </div>
           <div class="panel-body">
             <form class="form-signin" role="form">
-              <input type="text" class="form-control" placeholder="账户名" required autofocus v-model="user.username">
+              <input type="text" class="form-control" placeholder="user name" required autofocus v-model="user.username">
               <br>
-              <input type="password" class="form-control" placeholder="密码" required v-model="user.password">
+              <input type="password" class="form-control" placeholder="password" required v-model="user.password">
               <br>
-              <input type="password" class="form-control" placeholder="重复密码" required v-model="user.confirmPassword">
+              <input type="password" class="form-control" placeholder="confirm password" required v-model="user.confirmPassword">
               <br>
-              <button class="btn btn-primary btn-block" type="submit" @click.prevent="doLogin()">注&nbsp;册</button>
+              <button class="btn btn-primary btn-block" type="submit" @click.prevent="doLogin()">Register</button>
               <br>
               <div class="redirect-login">
-                已有账号？<a href="javascript:void(0)" v-link="{path: '/login'}">点此</a> 登录
+                Has account? Please <a href="javascript:void(0)" v-link="{path: '/login'}"><b class="text-danger">click this</b></a> to login.
               </div>
             </form>
           </div>

@@ -2,7 +2,8 @@
   .op {
     vertical-align: middle;
   }
-  .well.well-sm{
+  
+  .well.well-sm {
     margin-bottom: 10px;
   }
 </style>
@@ -10,18 +11,18 @@
 <template>
   <div class="app-api-list">
     <div class="well well-sm">
-      当前应用：{{appName}}，API总数：{{apiTotal}} <a v-link="{path: '/app'}"><i class="fa fa-mail-reply"></i> 返回应用列表</a>
+      Current Application: <span class="text-danger">{{appName}}</span>, API Total: <span class="text-danger">{{apiTotal}}</span>      <a v-link="{path: '/app'}"><i class="fa fa-mail-reply"></i> Return Application List</a>
     </div>
     <div class="panel panel-primary">
       <!-- Default panel contents -->
-      <div class="panel-heading">API列表</div>
+      <div class="panel-heading">API List</div>
       <table class="table table-striped table-bordered table-hover">
         <tr>
-          <th style="width: 300px;">API名称</th>
-          <th>API PATH</th>
-          <th style="width:60px;" class="text-center">状态码</th>
-          <th style="width: 50px;" class="text-center">可用</th>
-          <th style="width: 80px;" class="text-center">操作</th>
+          <th style="width: 300px;">API Name</th>
+          <th>API Path</th>
+          <th style="width:60px;" class="text-center">Status Code</th>
+          <th style="width: 50px;" class="text-center">Enable</th>
+          <th style="width: 80px;" class="text-center">Operate</th>
         </tr>
         <tr v-for="api in apiList">
           <td><a>{{api.apiName}}</a></td>
@@ -30,14 +31,14 @@
           <td class="text-center"><input type="checkbox" disabled v-model="api.isEnable"></td>
           <td class="text-center">
             <div class="btn-group">
-              <button title="编辑" class="btn btn-info btn-xs" @click="showEditApiDialog(api)"><i class="fa fa-edit"></i></button>
-              <button title="删除" class="btn btn-danger btn-xs" @click="confirmDeleteApi(api)"><i class="fa fa-remove"></i></button>
+              <button title="Edit" class="btn btn-info btn-xs" @click="showEditApiDialog(api)"><i class="fa fa-edit"></i></button>
+              <button title="Delete" class="btn btn-danger btn-xs" @click="confirmDeleteApi(api)"><i class="fa fa-remove"></i></button>
             </div>
           </td>
         </tr>
       </table>
       <div class="panel-footer">
-        <button class="btn btn-sm btn-danger" @click="showCreateApiDialog()"><i class="fa fa-plus"></i> 添加API</button>
+        <button class="btn btn-sm btn-danger" @click="showCreateApiDialog()"><i class="fa fa-plus"></i> Add API</button>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-primary">1</button>
           <!--<button type="button" class="btn btn-default">2</button>
@@ -48,11 +49,11 @@
 
     <modal :show.sync="apiDialogShown" :width="800" effect="zoom" :backdrop="false">
       <div slot="modal-header" class="modal-header">
-        <h4 class="modal-title">新增API</h4>
+        <h4 class="modal-title">Create New API</h4>
       </div>
       <div slot="modal-body" class="modal-body">
         <div class="form-group form-group-sm">
-          <label class="control-label">API名称</label>
+          <label class="control-label">API Name</label>
           <input type="text" class="form-control" v-model="apiEntity.apiName">
         </div>
         <div class="form-group form-group-sm">
@@ -128,8 +129,8 @@
         </div>
       </div>
       <div slot="modal-footer" class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" @click="apiDialogShown = false">取消</button>
-        <button type="button" class="btn btn-sm btn-success" @click="saveApi()">保存</button>
+        <button type="button" class="btn btn-sm btn-default" @click="apiDialogShown = false">Cancel</button>
+        <button type="button" class="btn btn-sm btn-success" @click="saveApi()">Save</button>
       </div>
     </modal>
   </div>
@@ -218,23 +219,23 @@
           ajax.put(`${AppConf.apiHost}/manage/app/${this.appId}/api/${this.apiEntity.apiId}`, this.apiEntity)
           .then(res => {
             this.apiDialogShown = false;
-            layer.msg('更新API成功！');
+            layer.msg('Update API successfully.');
             this.loadApiData();
           });
         }else{ // Add
           ajax.post(`${AppConf.apiHost}/manage/app/${this.appId}/api`, this.apiEntity)
           .then(res => {
             this.apiDialogShown = false;
-            layer.msg('添加API成功！');
+            layer.msg('Add API successfully.');
             this.loadApiData();
           });
         }                
       },
       confirmDeleteApi(api) {
-        layer.confirm(`确实要删除API【${api.apiName}】么？`, {title: '请确认'}, () => {
+        layer.confirm(`Would you want to delete API[${api.apiName}]?`, {title: 'Please sure?'}, () => {
           ajax.delete(`${AppConf.apiHost}/manage/app/${this.appId}/api/${api.apiId}`)
           .then(res => {
-            layer.msg('删除成功！');
+            layer.msg('Delete successfully.');
             this.loadApiData();
           });
         });

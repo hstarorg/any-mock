@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <h1>Welcome, You can <a v-link="{path: '/app'}">创建应用</a></h1>
+    <h3>Welcome, You can <a v-link="{path: '/app'}">Create New App</a></h3>
   </div>
 </template>
 

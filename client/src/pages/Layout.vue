@@ -30,18 +30,18 @@
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
             <li v-link="{path: '/', exact: true, activeClass: 'active'}">
-              <a href="javascript:void(0);">欢迎</a>
+              <a href="javascript:void(0);">Welcome</a>
             </li>
             <li v-link="{path: '/app', activeClass: 'active'}">
-              <a href="javascript:void(0);">我的应用</a>
+              <a href="javascript:void(0);">My Application</a>
             </li>
             <li v-link="{path: '/search', activeClass: 'active'}">
-              <a href="javascript:void(0);">搜索API</a>
+              <a href="javascript:void(0);">API Search</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0);">欢迎您！</a></li>
-            <li @click="doLogout()"><a href="javascript:void(0);">退出</a></li>
+            <li><a href="javascript:void(0);">Welcome, Jay!</a></li>
+            <li @click="doLogout()"><a href="javascript:void(0);">Logout</a></li>
           </ul>
         </nav>
       </div>

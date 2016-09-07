@@ -6,26 +6,29 @@
   <div class="app-app-list">
     <div class="panel panel-primary">
       <!-- Default panel contents -->
-      <div class="panel-heading">我的应用列表</div>
+      <div class="panel-heading">My Application List</div>
       <table class="table table-striped table-bordered table-hover">
         <tr>
-          <th>应用名称</th>
-          <th>应用ID</th>
-          <th style="width: 80px;" class="text-center">操作</th>
+          <th>Application Name</th>
+          <th>Application ID</th>
+          <th style="width: 80px;" class="text-center">Operate</th>
         </tr>
         <tr v-for="app in appList">
-          <td><a v-link="{path: '/app/apis', query: {appId: app.appId}}">{{app.appName}}</a></td>
+          <td>
+            <a v-link="{path: '/app/apis', query: {appId: app.appId}}">{{app.appName}}</a>
+            <span v-if="app.isOwner" class="label label-info">Owner</span>
+          </td>
           <td>{{app.appId}}</td>
           <td class="text-center">
             <div class="btn-group">
-              <button title="编辑" class="btn btn-info btn-xs" @click="showEditAppDialog(app)"><i class="fa fa-edit"></i></button>
-              <button title="删除" class="btn btn-danger btn-xs" @click="confirmDeleteApp(app)"><i class="fa fa-remove"></i></button>
+              <button title="Edit" class="btn btn-info btn-xs" @click="showEditAppDialog(app)"><i class="fa fa-edit"></i></button>
+              <button title="Delete" class="btn btn-danger btn-xs" @click="confirmDeleteApp(app)"><i class="fa fa-remove"></i></button>
             </div>
           </td>
         </tr>
       </table>
       <div class="panel-footer">
-        <button class="btn btn-sm btn-danger" @click="showCreateAppDialog()"><i class="fa fa-plus"></i> 添加APP</button>
+        <button class="btn btn-sm btn-danger" @click="showCreateAppDialog()"><i class="fa fa-plus"></i> Create App</button>
         <div class="btn-group pull-right">
           <button type="button" class="btn btn-primary">1</button>
           <!--<button type="button" class="btn btn-default">2</button>
@@ -41,15 +44,18 @@
       <div slot="modal-body" class="modal-body">
         <form>
           <div class="form-group form-group-sm">
-            <label class="control-label">应用名称</label>
+            <label class="control-label">Application Name</label>
             <input type="text" class="form-control" v-model="appEntity.appName">
           </div>
-
+          <div class="form-group form-group-sm">
+            <label class="control-label">Managers(multi users need split by ',')</label>
+            <input type="text" class="form-control" v-model="appEntity.authorizedUserStr">
+          </div>
         </form>
       </div>
       <div slot="modal-footer" class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" @click="appDialogShown = false">取消</button>
-        <button type="button" class="btn btn-sm btn-success" @click="saveApp()">保存</button>
+        <button type="button" class="btn btn-sm btn-default" @click="appDialogShown = false">Cancel</button>
+        <button type="button" class="btn btn-sm btn-success" @click="saveApp()">Save</button>
       </div>
     </modal>
   </div>
@@ -75,7 +81,8 @@
     methods: {
       createEmptyApp() {
         return {
-          appName: ''
+          appName: '',
+          authorizedUserStr: ''
         };
       },
       loadAppData() {
@@ -90,12 +97,23 @@
       },
       showEditAppDialog(app) {
         this.appEntity = _.cloneDeep(app);
+        this.appEntity.authorizedUserStr = (this.appEntity.authorizedUser || []).join(',');
         this.appDialogShown = true;
       },
       saveApp(){
-        let appName = this.updateAppEntity.appName;
-        ajax.post(`${AppConf.apiHost}/manage/app`, {appName: appName})
-        .then(res => {
+        let appName = this.appEntity.appName;
+        let authorizedUser = this.appEntity.authorizedUserStr.split(',');
+        let data = {
+          appName: appName, 
+          authorizedUser: authorizedUser
+        };
+        let p;
+        if(this.appEntity.appId){ // 更新
+          p = ajax.put(`${AppConf.apiHost}/manage/app/${this.appEntity.appId}`, data);
+        }else{ // 新增
+          p = ajax.post(`${AppConf.apiHost}/manage/app`, data);
+        }
+        p.then(res => {
           layer.msg('Save successfully.');
           this.appDialogShown = false;
           this.loadAppData();
@@ -113,7 +131,7 @@
     },
     computed: {
       dialogTitle(){
-        return this.appEntity.appId ? `更新应用【${this.appEntity.appName}】`: '创建新应用';
+        return this.appEntity.appId ? `Update app [${this.appEntity.appName}]`: 'Create new app';
       }
     }
   };

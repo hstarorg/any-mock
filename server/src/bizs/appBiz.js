@@ -21,6 +21,7 @@ let createApp = (req, res, next) => {
         userId: userId,
         appId: util.buildRandomString(),
         appName: appName,
+        authorizedUser: req.body.authorizedUser,
         createDate: Date.now()
       };
       db.apps.insert(appEntity, (err, newApp) => {
@@ -33,10 +34,19 @@ let createApp = (req, res, next) => {
 };
 
 let getApps = (req, res, next) => {
-  db.apps.find({ userId: req.reqData.user.userId }, (err, apps) => {
-    if (err) return next(err);
-    res.json(apps);
-  });
+  let user = req.reqData.user;
+  let filterObj = {
+    $or: [
+      { userId: user.userId },
+      { authorizedUser: { $elemMatch: user.username } }
+    ]
+  };
+  db.query('apps', filterObj, null, { createDate: -1 }, { pageIndex: 1, pageSize: 10 })
+    .then(apps => {
+      apps.forEach(app => app.isOwner = app.userId === user.userId);
+      res.json(apps)
+    })
+    .catch(reason => next(reason));
 };
 
 let getApp = (req, res, next) => {
@@ -63,15 +73,16 @@ let getAppApis = (req, res, next) => {
 
 let hasAppAuth = (req, res, next) => {
   let appId = req.params.appId;
-  db.apps.findOne({ appId: appId }, (err, app) => {
-    if (err) return next(err);
-    if (!app) return next(new Error('app not exists.'));
-    if (app.userId !== req.reqData.user.userId) {
-      return next(new Error('Permission denied'));
-    }
-    req.reqData.app = app;
-    next();
-  });
+  let user = req.reqData.user;
+  db.findOne('apps', { appId: appId })
+    .then(app => {
+      if (!app) return next(new Error('app not exists.'));
+      if (app.userId !== user.userId && app.authorizedUser.indexOf(user.username) < 0) {
+        return next(new Error('Permission denied'));
+      }
+      req.reqData.app = app;
+      next();
+    }).catch(reason => next(reason));
 };
 
 let deleteApp = (req, res, next) => {
@@ -90,7 +101,8 @@ let updateApp = (req, res, next) => {
   let appName = req.body.appName;
   let updateObj = {
     $set: {
-      appName: appName
+      appName: appName,
+      authorizedUser: req.body.authorizedUser
     }
   };
   db.apps.update({ appId: appId }, updateObj, {}, (err, numReplaced) => {
