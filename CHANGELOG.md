@@ -1,10 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## client_0.0.3（2016-09-x）
+## server_0.0.3（2016-09-08）
+
+- 增加自动登录API
+
+## client_0.0.3（2016-09-08）
 
 - 修复Modal不能兼容IE的bug（引入babel-polyfill）
 - 修复prod模式下注入到index.html的资源加载顺序不正确
+- 登录之后，在header上显示用户名
+- 增强 API Response 编辑器，支持代码着色
+- 修复API维护界面，Final Address多出undefined的bug
 
 ## server_0.0.2（2016-09-07）
 

@@ -76,7 +76,7 @@
             <input type="text" class="form-control" v-model="apiEntity.apiPath">
           </div>
         </div>
-        <div class="well well-sm">Final Address: <span class="text-danger">{{mockApiHost + apiEntity.apiPath}}</span></div>
+        <div class="well well-sm">Final Address: <span class="text-danger">{{mockApiHost + (apiEntity.apiPath || '')}}</span></div>
         <div class="form-group form-group-sm">
           <label class="control-label">Response Headers</label>
           <table class="table table-condensed">
