@@ -122,7 +122,8 @@
         </div>
         <div class="form-group form-group-sm">
           <label class="control-label">Response Body</label>
-          <textarea rows="5" class="form-control" v-model="apiEntity.responseData"></textarea>
+          <!--<textarea rows="5" class="form-control" v-model="apiEntity.responseData"></textarea>-->
+          <ace-editor :value.sync="apiEntity.responseData" :mode="editorMode" :theme="'ambiance'"></ace-editor>
         </div>
         <div class="form-group form-group-sm">
           <label class="control-label"> <input type="checkbox" v-model="apiEntity.isEnable"> Enable</label>
@@ -139,15 +140,18 @@
 <script>
   import { ajax, responseStatus } from './../common';
   import { modal } from 'vue-strap'
+  import { aceEditor } from './../components';
   export default {
     components: {
-      modal
+      modal,
+      aceEditor
     },
     data() {
       return {
         appId: '',
         appName: '',
         apiTotal: 0,
+        editorMode: 'json',
         apiList: [],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         contentTypeList: ['application/json', 'text/json', 'text/plain', 'application/xml', 'text/xml'],
@@ -213,6 +217,13 @@
       changeContentType(contentType, isCustom) {
         this.customContentType = isCustom;
         this.apiEntity.responseContentType = contentType;
+        if(contentType.indexOf('json') >= 0){
+          this.editorMode = 'json';
+        }else if(contentType.indexOf('xml') >= 0){
+          this.editorMode = 'xml';
+        }else{
+          this.editorMode = 'text';
+        }
       },
       saveApi() {
         if(this.apiEntity.apiId){ // Update
