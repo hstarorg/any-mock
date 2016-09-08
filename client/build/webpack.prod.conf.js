@@ -59,7 +59,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      // chunksSortMode: 'dependency'
+      chunksSortMode: function (a1, a2) {
+        //每次定义，性能稍差
+        let sortedArr = ['manifest', 'vendor', 'config', 'app'];
+        return sortedArr.indexOf(a1.names[0]) - sortedArr.indexOf(a2.names[0]);
+      }
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
@@ -79,7 +84,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      chunks: ['vendor']
+      chunks: ['vendor', 'config']
     })
   ]
 })
