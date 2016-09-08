@@ -73,7 +73,7 @@ let doLogin = (req, res, next) => {
 
 let doLogout = (req, res, next) => {
   db.users.update({ _id: req.reqData.user._id }, { $set: { accessToken: '' } }, {}, (err, numReplaced) => {
-    if (err)      return next(err);
+    if (err) return next(err);
     if (numReplaced === 0) {
       return next('logout failed, please contact administrator.');
     }
@@ -81,10 +81,25 @@ let doLogout = (req, res, next) => {
   });
 };
 
+let doAutoLogin = (req, res, next) => {
+  db.findOne('users', { accessToken: req.body.token, expiredTime: { $gt: Date.now() } })
+    .then(user => {
+      if (!user) {
+        res.status(401);
+        return res.end();
+      }
+      res.json({
+        username: user.username,
+        userId: user.userId
+      })
+    }).catch(reason => next(reason));
+};
+
 module.exports = {
   validateUserInfo: validateUserInfo,
   createUser: createUser,
   doLogin: doLogin,
   doLogout: doLogout,
-  auth: auth
+  auth: auth,
+  doAutoLogin: doAutoLogin
 };

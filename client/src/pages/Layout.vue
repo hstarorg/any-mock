@@ -40,7 +40,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0);">Welcome, Jay!</a></li>
+            <li><a href="javascript:void(0);">Welcome, {{user.username}}!</a></li>
             <li @click="doLogout()"><a href="javascript:void(0);">Logout</a></li>
           </ul>
         </nav>
@@ -54,12 +54,31 @@
 </template>
 
 <script>
-  import { eventBus } from './../common';
+  import { eventBus, ajax } from './../common';
+  import { setUserInfo } from './../vuex/actions';
   export default {
+    vuex: {
+      getters: {
+        user: state => state.userInfo
+      },
+      actions: {
+        setUserInfo
+      }
+    },
     data() {
       return {
         abc: 'test'
       };
+    },
+    created() {
+      let token = localStorage.getItem('token');
+      ajax.post(`${AppConf.apiHost}/manage/autologin`, {token: token})
+      .then(res => {
+        let data = res.json();
+        this.setUserInfo(data);
+      }).catch(()=>{
+        this.$router.go('/login');
+      });
     },
     methods: {
       doLogout() {

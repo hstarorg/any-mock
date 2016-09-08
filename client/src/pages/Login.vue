@@ -2,7 +2,8 @@
   .login-panel {
     margin-top: calc(50vh - 150px);
   }
-  .redirect-register{
+  
+  .redirect-register {
     font-size: 12px;
   }
 </style>
@@ -13,7 +14,7 @@
       <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4 login-panel">
         <div class="panel panel-danger">
           <div class="panel-heading text-center">
-          Log In Any-Mock
+            Log In Any-Mock
           </div>
           <div class="panel-body">
             <form class="form-signin" role="form">
@@ -28,7 +29,7 @@
               <button class="btn btn-danger btn-block" type="submit" @click.prevent="doLogin()">Log&nbsp;In</button>
               <br>
               <div class="redirect-register">
-                No account? Please <a href="javascript:void(0)" v-link="{path: '/register'}"><b class="text-danger">click this</b></a> to register.
+                No account? Please <a href="javascript:void(0)" v-link="{path: '/register'}"><b class="text-danger">click this</b></a>                to register.
               </div>
             </form>
           </div>
@@ -40,7 +41,13 @@
 
 <script>
   import { ajax } from './../common';
+  import { setUserInfo } from './../vuex/actions';
   export default {
+    vuex: {
+      actions: {
+        setUserInfo
+      }
+    },
     data() {
       return {
         user: {
@@ -70,6 +77,7 @@
             localStorage.removeItem('username');
           }
           let data = res.json();
+          this.setUserInfo({username: this.user.username});
           localStorage.setItem('token', data.token);
           this.$router.go('/');
         });

@@ -68,7 +68,6 @@ router.beforeEach(transition => {
   if (transition.to.auth) {
     if (!localStorage.getItem('token') || localStorage.getItem('logout')) {
       localStorage.removeItem('token');
-      localStorage.removeItem('logout');
       transition.abort();
       router.go('/login');
     }
