@@ -8,9 +8,14 @@ import VueResource from 'vue-resource';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
-Vue.transition('fadeBig', {
-  enterClass: 'fadeInRightBig',
-  leaveClass: 'fadeOutLeftBig'
+Vue.transition('fade', {
+  enterClass: 'fadeDown',
+  leaveClass: 'fadeOutDown'
+});
+
+Vue.transition('zoom', {
+  enterClass: 'zoomIn',
+  leaveClass: 'zoomOut'
 });
 
 import 'lodash';

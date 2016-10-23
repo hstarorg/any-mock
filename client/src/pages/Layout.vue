@@ -47,7 +47,7 @@
       </div>
     </header>
     <div class="container">
-      <router-view class="animated" transition="fadeBig">
+      <router-view class="animated" transition="zoom">
       </router-view>
     </div>
   </div>
