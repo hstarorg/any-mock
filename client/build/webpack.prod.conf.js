@@ -11,9 +11,6 @@ var env = process.env.NODE_ENV === 'testing'
   : config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
-  entry: {
-    config: './src/config/config.prod.js'
-  },
   module: {
     loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
@@ -30,7 +27,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     })
   },
   plugins: [
-    // http://vuejs.github.io/vue-loader/workflow/production.html
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
     }),
@@ -39,7 +36,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     // extract css into its own file
     new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
     // generate dist index.html with correct asset hash for caching.
@@ -59,12 +56,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      // chunksSortMode: 'dependency'
-      chunksSortMode: function (a1, a2) {
-        //每次定义，性能稍差
-        let sortedArr = ['manifest', 'vendor', 'config', 'app'];
-        return sortedArr.indexOf(a1.names[0]) - sortedArr.indexOf(a2.names[0]);
-      }
+      chunksSortMode: 'dependency'
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
@@ -84,7 +76,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      chunks: ['vendor', 'config']
+      chunks: ['vendor']
     })
   ]
 })

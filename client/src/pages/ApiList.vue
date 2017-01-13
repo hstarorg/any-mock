@@ -2,7 +2,7 @@
   .op {
     vertical-align: middle;
   }
-  
+
   .well.well-sm {
     margin-bottom: 10px;
   }
@@ -240,7 +240,7 @@
             layer.msg('Add API successfully.');
             this.loadApiData();
           });
-        }                
+        }
       },
       confirmDeleteApi(api) {
         layer.confirm(`Would you want to delete API[${api.apiName}]?`, {title: 'Please sure?'}, () => {

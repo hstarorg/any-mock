@@ -107,7 +107,7 @@
         let appName = this.appEntity.appName;
         let authorizedUser = this.appEntity.authorizedUserStr.split(',');
         let data = {
-          appName: appName, 
+          appName: appName,
           authorizedUser: authorizedUser
         };
         let p;
@@ -129,7 +129,7 @@
             layer.close(layerId);
             this.loadAppData();
           });
-        });        
+        });
       }
     }
   };

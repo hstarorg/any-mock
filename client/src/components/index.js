@@ -1,2 +1,5 @@
-import _aceEditor from './aceEditor.vue';
-export const aceEditor = _aceEditor;
+import aceEditor from './ace-editor.vue';
+
+export {
+  aceEditor
+};

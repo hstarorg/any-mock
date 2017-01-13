@@ -2,7 +2,7 @@
   .login-panel {
     margin-top: calc(50vh - 150px);
   }
-  
+
   .redirect-register {
     font-size: 12px;
   }

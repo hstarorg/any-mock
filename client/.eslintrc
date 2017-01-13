@@ -1,6 +1,11 @@
 {
+  "parser": "babel-eslint",
+  "plugins": [
+    "html"
+  ],
+  "extends": "standard",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 6
   }
 }

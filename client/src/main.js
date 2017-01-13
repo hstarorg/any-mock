@@ -1,12 +1,11 @@
 import './css/layout.css';
-import 'babel-polyfill';
 
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
-
-Vue.use(VueRouter);
-Vue.use(VueResource);
+import axios from 'axios';
+window.axios = axios;
+import 'lodash';
+import App from './App';
+import router from './router.config';
 
 Vue.transition('fade', {
   enterClass: 'fadeDown',
@@ -18,68 +17,17 @@ Vue.transition('zoom', {
   leaveClass: 'zoomOut'
 });
 
-import 'lodash';
+// 导入Config
+if (process.env.NODE_ENV !== 'production') {
+  require('./config/config.dev.js');
+} else {
+  require('./config/config.prod.js');
+}
 
-import App from './App';
-
-import Layout from './pages/Layout'
-import Login from './pages/Login';
-import Welcome from './pages/Welcome';
-import AppList from './pages/AppList';
-import ApiList from './pages/ApiList';
-import Search from './pages/Search';
-import Register from './pages/Register';
-
-let router = new VueRouter({
-  saveScrollPosition: true,
-  history: true
+/* eslint-disable no-unused-vars */
+const app = new Vue({
+  el: '#app',
+  router,
+  store,
+  ...App
 });
-
-router.map({
-  '/login': {
-    component: Login
-  },
-  '/register': {
-    component: Register
-  },
-  '/': {
-    component: Layout,
-    subRoutes: {
-      '/': {
-        component: Welcome,
-        auth: true
-      },
-      '/app': {
-        name: 'app',
-        component: AppList,
-        auth: true
-      },
-      '/api': {
-        component: Vue.extend({ template: '404' }),
-        auth: true
-      },
-      '/app/apis': {
-        component: ApiList,
-        auth: true
-      },
-      '/search': {
-        component: Search
-      }
-    }
-  }
-});
-
-router.beforeEach(transition => {
-  if (transition.to.auth) {
-    if (!localStorage.getItem('token') || localStorage.getItem('logout')) {
-      localStorage.removeItem('token');
-      transition.abort();
-      router.go('/login');
-    }
-  }
-  transition.next();
-});
-
-Vue.$router = router;
-
-router.start(App, document.querySelector('body > div'));

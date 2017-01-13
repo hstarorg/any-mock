@@ -2,11 +2,11 @@
   .app-layout {
     margin-top: 60px;
   }
-  
+
   .app-layout .container {
     position: relative;
   }
-  
+
   .app-layout .container > .animated {
     position: absolute;
     right: 15px;

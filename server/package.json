@@ -18,7 +18,8 @@
     "nedb": "^1.8.0",
     "node-uuid": "^1.4.7",
     "path-to-regexp": "^1.5.3",
-    "rest-express": "^1.1.0"
+    "rest-express": "^1.1.0",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "gulp": "github:gulpjs/gulp#4.0",

@@ -1,18 +1,5 @@
-<style>
-
-</style>
-
 <template>
-  <router-view></router-view>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
-
-<script>
-  import store from './vuex/store';
-  export default {
-    store, // 增加Store
-    // replace: false,
-    data (){
-      return {};
-    }
-  };
-</script>
