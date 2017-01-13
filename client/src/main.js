@@ -6,16 +6,17 @@ window.axios = axios;
 import 'lodash';
 import App from './App';
 import router from './router.config';
+import store from './store';
 
-Vue.transition('fade', {
-  enterClass: 'fadeDown',
-  leaveClass: 'fadeOutDown'
-});
+// Vue.transition('fade', {
+//   enterClass: 'fadeDown',
+//   leaveClass: 'fadeOutDown'
+// });
 
-Vue.transition('zoom', {
-  enterClass: 'zoomIn',
-  leaveClass: 'zoomOut'
-});
+// Vue.transition('zoom', {
+//   enterClass: 'zoomIn',
+//   leaveClass: 'zoomOut'
+// });
 
 // 导入Config
 if (process.env.NODE_ENV !== 'production') {

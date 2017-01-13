@@ -29,14 +29,14 @@
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
-            <li v-link="{path: '/', exact: true, activeClass: 'active'}">
-              <a href="javascript:void(0);">Welcome</a>
+            <li>
+              <router-link to="/">Welcome</router-link>
             </li>
-            <li v-link="{path: '/app', activeClass: 'active'}">
-              <a href="javascript:void(0);">My Application</a>
+            <li>
+              <router-link to="/app">My Application</router-link>
             </li>
-            <li v-link="{path: '/search', activeClass: 'active'}">
-              <a href="javascript:void(0);">API Search</a>
+            <li>
+              <router-link to="/search">API Search</router-link>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -55,30 +55,22 @@
 
 <script>
   import { eventBus, ajax } from './../common';
-  import { setUserInfo } from './../vuex/actions';
   export default {
-    vuex: {
-      getters: {
-        user: state => state.userInfo
-      },
-      actions: {
-        setUserInfo
-      }
-    },
     data() {
       return {
+        user: {},
         abc: 'test'
       };
     },
     created() {
       let token = localStorage.getItem('token');
-      ajax.post(`${AppConf.apiHost}/manage/autologin`, {token: token})
-      .then(res => {
-        let data = res.json();
-        this.setUserInfo(data);
-      }).catch(()=>{
-        this.$router.go('/login');
-      });
+      ajax.post(`${AppConf.apiHost}/manage/autologin`, { token: token })
+        .then(res => {
+          let data = res.json();
+          // this.setUserInfo(data);
+        }).catch(() => {
+          // this.$router.go('/login');
+        });
     },
     methods: {
       doLogout() {
