@@ -1,65 +1,52 @@
-import Vue from 'vue';
-let buildOptions = (options) => {
-  let opt = _.extend({}, options);
-  opt.headers = opt.headers || {};
-  opt.headers['x-token'] = localStorage.getItem('token');
-  return opt;
-};
-
-let request = (type, url, data, options) => {
-  let opt = buildOptions(options);
-  let p;
-  switch (type) {
-    case 'get':
-    case 'delete':
-      p = Vue.http[type](url, opt);
-      break;
-    case 'post':
-    case 'put':
-      p = Vue.http[type](url, data, opt);
-      break;
-    default:
-      throw new Error(`Not supported method: ${type}`);
-  }
+const request = (method, url, data, config = {}) => {
+  let options = Object.assign({}, config, {
+    url,
+    method,
+    data,
+    baseURL: window.AppConf.apiHost
+  });
+  options.headers = options.headers || {};
   return new Promise((resolve, reject) => {
-    p.then(res => {
-      resolve(res);
-    }).catch(res => {
-      if (res.status === 401) {
-        layer.closeAll();
-        let layerId = layer.msg('授权已过期，请重新登录', { icon: 3, title: '警告' }, () => {
-          layer.close(layerId);
-          Vue.$router.go('/login');
-        });
-      }
-      if (!opt.disabledGlobalException) {
-        let error = res.json() || { message: '' };
-        layer.msg(`【${res.status}】${res.statusText}(${error.message})`);
-      }
-      reject(res);
-    });
+    window.axios.request(options)
+      .then(res => {
+        let data = res.data;
+        if (!data) {
+          return resolve(data);
+        }
+        if (data.HasError) {
+          layer.msg(res.message)
+          reject(res);
+        }
+        resolve(data);
+      }).catch(res => {
+        if (!res.config.notNotifyError) {
+          layer.msg(res.message)
+        }
+        reject(res);
+      });
   });
 };
 
-let get = (url, options) => {
-  return request('get', url, null, options);
-}
-
-let post = (url, data, options) => {
-  return request('post', url, data, options);
-};
-
-let put = (url, data, options) => {
-  return request('put', url, data, options);
-};
-
-let _delete = (url, options) => {
-  return request('delete', url, null, options);
-};
-
 export const ajax = {
-  get: get,
-  post: post,
-  put: put,
-  delete: _delete
+  get(url, config) {
+    return request('get', url, null, config);
+  },
+  delete(url, config) {
+    return request('delete', url, null, config);
+  },
+  head(url, config) {
+    return request('head', url, null, config);
+  },
+  post(url, data, config) {
+    return request('post', url, data, config);
+  },
+  put(url, data, config) {
+    return request('put', url, data, config);
+  },
+  patch(url, data, config) {
+    return request('path', url, data, config);
+  },
+  setCommonHeader(key, value) {
+    window.axios.defaults.headers.common[key] = value;
+  }
 };
