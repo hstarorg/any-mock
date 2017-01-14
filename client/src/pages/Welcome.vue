@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h3>Welcome, You can <a v-link="{path: '/app'}">Create New App</a></h3>
+    <h3>Welcome, You can <a href="/">Create New App</a></h3>
   </div>
 </template>
