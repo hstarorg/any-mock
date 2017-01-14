@@ -1,9 +1,12 @@
-import './css/layout.css';
-
 import Vue from 'vue';
 import axios from 'axios';
+
 window.axios = axios;
 import 'lodash';
+
+import Vue2Semantic from './vue2-semantic';
+Vue.use(Vue2Semantic);
+
 import App from './App';
 import router from './router.config';
 import store from './store';

@@ -2,8 +2,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import LayoutPage from './pages/layout/LayoutPage';
-// import Login from './pages/Login';
+import { LayoutPage } from './pages/layout';
+import { Dashboard } from './pages/home';
+import { ProjectList, ProjectDetail } from './pages/project';
+import { TeamList } from './pages/team';
+import { UserSetting } from './pages/setting';
+import { NotFound } from './pages/system';
 import Welcome from './pages/Welcome';
 // import AppList from './pages/AppList';
 // import ApiList from './pages/ApiList';
@@ -16,12 +20,15 @@ const routes = [
   // { path: '/register', component: Register },
   {
     path: '', component: LayoutPage, children: [
-      { path: '', component: Welcome },
-      // { path: 'app', component: AppList },
+      { path: '', component: Dashboard },
+      { path: 'team', component: TeamList },
+      { path: 'project', component: ProjectList },
+      { path: 'project/:id', component: ProjectDetail },
+      { path: 'settings', component: UserSetting }
       // { path: 'app/apis', component: ApiList }
     ]
   },
-  { path: '*', component: {} }
+  { path: '*', component: NotFound }
 ];
 
 /* 注册路由 */
