@@ -9,7 +9,7 @@
 <template>
   <div class="page-project-list ui container">
     <div>
-      <button class="ui green button"><i class="plus icon"></i>Add Project</button>
+      <button class="ui green button" @click="$router.push('/project/new')"><i class="plus icon"></i>Add Project</button>
     </div>
     <hr>
     <sm-cards is-link>
