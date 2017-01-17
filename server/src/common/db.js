@@ -6,7 +6,19 @@ const db = {};
 
 db.users = new Datastore({ filename: path.join(config.dbFolder, 'users.db'), autoload: true });
 db.apis = new Datastore({ filename: path.join(config.dbFolder, 'apis.db'), autoload: true });
-db.projects = new Datastore({ filename: path.join(config.dbFolder, 'apps.db'), autoload: true });
+db.projects = new Datastore({ filename: path.join(config.dbFolder, 'projects.db'), autoload: true });
+
+/**
+ * 添加元素
+ */
+db.insert = (collection, doc) => {
+  return new Promise((resolve, reject) => {
+    db[collection].insert(doc, (err, newDocs) => {
+      if (err) return reject(err);
+      resolve(newDocs);
+    })
+  });
+};
 
 /**
  * 查询数据列表
@@ -26,6 +38,20 @@ db.query = (collection, filterObj, fieldsObj, sortObj, pageObj) => {
 };
 
 /**
+ * 更新记录
+ */
+db.update = (collection, filterObj, updatedObj, options) => {
+  return new Promise((resolve, reject) => {
+    db[collection].update(filterObj, updatedObj, options || {}, (err, numReplaced) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(numReplaced);
+    });
+  });
+};
+
+/**
  * 查询数量
  */
 db.count = (collection, filterObj) => {
@@ -40,9 +66,9 @@ db.count = (collection, filterObj) => {
 /**
  * 查询单个元素
  */
-db.findOne = (collection, filterObj) => {
+db.findOne = (collection, filterObj, fieldsObj) => {
   return new Promise((resolve, reject) => {
-    db[collection].findOne(filterObj, (err, doc) => {
+    db[collection].findOne(filterObj, fieldsObj || {}, (err, doc) => {
       if (err) return reject(err);
       resolve(doc);
     });
@@ -61,16 +87,6 @@ db.remove = (collection, filterObj, allowMulti = false) => {
   });
 };
 
-/**
- * 添加元素
- */
-db.insert = (collection, doc) => {
-  return new Promise((resolve, reject) => {
-    db[collection].insert(doc, (err, newDocs) => {
-      if (err) return reject(err);
-      resolve(newDocs);
-    })
-  });
-};
+
 
 module.exports = db;

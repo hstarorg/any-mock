@@ -1,18 +1,20 @@
-let gulp = require('gulp');
-let devServer = require('gulp-develop-server');
-let notifier = require('node-notifier');
+const gulp = require('gulp4');
+const devServer = require('gulp-develop-server');
+const notifier = require('node-notifier');
 
-let files = [
+const files = [
   './src/**/*.js'
 ];
 
 gulp.task('server:start', done => {
-  devServer.listen({ path: './src/index.js' });
+  devServer.listen({ path: './src/index.js' }, err => err && console.error(err));
   done();
 });
 
 gulp.task('server:restart', done => {
-  devServer.restart();
+  devServer.restart(err => {
+    err && console.error(err);
+  });
   notifier.notify({
     title: 'Notify',
     sound: true,

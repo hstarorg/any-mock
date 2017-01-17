@@ -1,24 +1,19 @@
 const router = new Router();
 const projectBiz = require('./../bizs/projectBiz');
+const auth = require('./../common/auth');
 
-router.use()
+router.use(auth.authenticate); // 验证User
 
 // Project
-router.post('/new'); // Create
+router.post('/new', projectBiz.createProject); // Create
 
-router.get('/'); // Get List
+router.get('/', projectBiz.getProjectList); // Get List
 
-router.get('/:id') // Get Single
+router.get('/:id', projectBiz.getProjectDetail) // Get Single
 
-router.put('/:id') // Update
+router.put('/:id', projectBiz.updateProject) // Update
 
-router.delete('/:id') // Delete
-
-// router.post('/app', userBiz.auth, appBiz.createApp);
-// router.get('/app', userBiz.auth, appBiz.getApps);
-// router.get('/app/:appId', userBiz.auth, appBiz.getApp);
-// router.put('/app/:appId', userBiz.auth, appBiz.hasAppAuth, appBiz.updateApp);
-// router.delete('/app/:appId', userBiz.auth, appBiz.hasAppAuth, appBiz.deleteApp);
+router.delete('/:id', projectBiz.deleteProject) // Delete
 
 //每个路由文件需要如下方式导出：
 module.exports = {

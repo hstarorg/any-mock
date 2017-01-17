@@ -1,17 +1,18 @@
-let path = require('path');
-let express = require('express');
-let restExpress = require('rest-express');
+const path = require('path');
+const express = require('express');
+const restExpress = require('rest-express');
 
-let config = require('./config/config');
+const config = require('./config');
+const auth = require('./common/auth');
 
-let options = {
+const options = {
   port: config.port,
   enableCors: true,
   enableGzip: true,
   apiPrefix: '/api/v1',
   routesPath: path.join(__dirname, 'routes'),
   onRoutesLoading: app => {
-    // app.use('/', express.static(config.staticFolder));
+    app.use(auth.init());
   },
   onRoutesLoaded: app => {
     app.use((req, res, next) => {

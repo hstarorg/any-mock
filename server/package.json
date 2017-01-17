@@ -11,22 +11,22 @@
   "keywords": [],
   "author": "Jay.M.Hu",
   "engines": {
-    "node": ">6.0.0"
+    "node": ">= 6.0.0"
   },
   "license": "MIT",
   "dependencies": {
     "joi": "^10.2.0",
     "lru-cache": "^4.0.2",
     "nedb": "^1.8.0",
-    "path-to-regexp": "^1.5.3",
-    "rest-express": "^1.1.0",
+    "path-to-regexp": "^1.7.0",
+    "rest-express": "^1.1.1",
     "shortid": "^2.2.6",
-    "sqlite3": "^3.1.8",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "gulp": "github:gulpjs/gulp#4.0",
     "gulp-develop-server": "^0.5.2",
+    "gulp4": "^4.0.1",
+    "mocha": "^3.2.0",
     "node-notifier": "^4.6.1"
   }
 }
