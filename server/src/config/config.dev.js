@@ -1,4 +1,4 @@
-let path = require('path');
+const path = require('path');
 
 module.exports = {
   port: 8601,

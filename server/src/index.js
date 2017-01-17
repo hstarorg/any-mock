@@ -8,9 +8,10 @@ let options = {
   port: config.port,
   enableCors: true,
   enableGzip: true,
+  apiPrefix: '/api/v1',
   routesPath: path.join(__dirname, 'routes'),
   onRoutesLoading: app => {
-    app.use('/', express.static(config.staticFolder));
+    // app.use('/', express.static(config.staticFolder));
   },
   onRoutesLoaded: app => {
     app.use((req, res, next) => {

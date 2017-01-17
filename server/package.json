@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha || true"
   },
   "keywords": [],
   "author": "Jay.M.Hu",
@@ -15,11 +15,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "joi": "^10.2.0",
+    "lru-cache": "^4.0.2",
     "nedb": "^1.8.0",
-    "node-uuid": "^1.4.7",
     "path-to-regexp": "^1.5.3",
     "rest-express": "^1.1.0",
-    "sqlite3": "^3.1.8"
+    "shortid": "^2.2.6",
+    "sqlite3": "^3.1.8",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "gulp": "github:gulpjs/gulp#4.0",

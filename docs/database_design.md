@@ -1,5 +1,48 @@
 # 数据库简易设计
 
+## 0、用户信息表
+
+| 列名 | 类型 | 备注 |
+| --- | --- | --- |
+| id | shortid | User ID |
+| username | string | User Name |
+
+## 1、项目信息表
+
+| 列名 | 类型 | 备注 |
+| --- | --- | --- |
+| id | shortid | 项目ID |
+| name | string | 项目名称 |
+| description | string | 项目明细 |
+| createDate | number | 创建时间，Date.now() |
+| createBy | shortid | 创建人 |
+| groups | Array<{groupId: shortid, name: string}> | API分组 |
+| users | Array<{userId: shortid, role: string}> | 项目的人员列表 |
+
+
+## 2、API信息表
+
+| 列名 | 类型 | 备注 |
+| --- | --- | --- |
+| id | shortid | API ID |
+| projectId | shortid | 所在的项目ID |
+| userId | shortid | 关联的用户ID |
+| groupId | shortid | 分组ID |
+| name | string | API名称 |
+| path | string | API PATH |
+| method | string | API 请求方法 |
+| res | {<br>headers: Array<{key: string, value: string>,<br>status: number, <br>content-type: string, <br>body: any<br>}  | 响应对象 |
+| filters | {condition: any, res} | 满足条件时，返回指定res |
+| createDate | number | 创建时间，Date.now() |
+| createBy | shortid | 创建人 |
+| isEnable | boolean | 是否可用 |
+| enableProxy | boolean | 是否启用二次代理 |
+| proxyUrl | string | 二次代理URL |
+
+**以下为初版设计，暂时先不关注**
+---
+---
+
 **注：虽然是用的Nosql，但是数据表设计是用的关系型表的设计。**
 
 **注2：如果要按照Nosql的方式来做的话，应该在用户表中加一个数组类型的apps属性，然后把项目存储在其中。**

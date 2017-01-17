@@ -9,7 +9,7 @@ router.all('/:appId([0-9a-z]{12})/*',
 );
 
 module.exports = {
-  priority: 1000,
+  priority: 0,
   router: router,
   prefix: '/'
 };

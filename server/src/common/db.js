@@ -1,12 +1,12 @@
-let path = require('path');
-let Datastore = require('nedb');
+const path = require('path');
+const Datastore = require('nedb');
 
-let config = require('./../config/config');
-let db = {};
+const config = require('./../config');
+const db = {};
 
-db.apis = new Datastore({ filename: path.join(config.dbFolder, 'apis.db'), autoload: true });
-db.apps = new Datastore({ filename: path.join(config.dbFolder, 'apps.db'), autoload: true });
 db.users = new Datastore({ filename: path.join(config.dbFolder, 'users.db'), autoload: true });
+db.apis = new Datastore({ filename: path.join(config.dbFolder, 'apis.db'), autoload: true });
+db.projects = new Datastore({ filename: path.join(config.dbFolder, 'apps.db'), autoload: true });
 
 /**
  * 查询数据列表
