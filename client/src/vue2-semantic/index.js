@@ -1,10 +1,12 @@
 import SmCards from './card/sm-cards';
 import SmCard from './card/sm-card';
+import SmSegment from './segment/sm-segment';
 
 // All components.
 const COMPONENTS = [
   SmCards,
-  SmCard
+  SmCard,
+  SmSegment
 ];
 
 const install = function (Vue) {

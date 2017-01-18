@@ -1,26 +1,31 @@
 <style lang="stylus">
   .page-project-list{
+    position: relative;
     padding-top: 5px;
     .sm-card{
       width: calc((100% - 56px) / 4) !important;
+    }
+    .btn-add-project{
+      position: absolute;
+      right: 5px;
     }
   }
 </style>
 <template>
   <div class="page-project-list ui container">
-    <div>
-      <button class="ui green button" @click="$router.push('/project/new')"><i class="plus icon"></i>Add Project</button>
+    <div class="ui secondary pointing menu">
+      <a class="item active"> API List </a>
+      <button class="ui green button btn-add-project" @click="$router.push('/project/new')"><i class="plus icon"></i>Add Project</button>
     </div>
-    <hr>
     <sm-cards is-link>
-      <sm-card v-for="proj in projectList" :header="proj.toString()" @click.native="goProjectDetail()">
+      <sm-card v-for="proj in projectList" :header="proj.name" @click.native="goProjectDetail(proj)">
         <template slot="meta">
-          <span class="date">Created at 2017.01.01</span>
+          <span class="date">Created at {{ proj.createDate | date('datetime')}}</span>
         </template>
-        这说法按时发达放大阿卡范德萨借款方家里看福都
+        {{ proj.description }}
         <template slot="extra">
           <a>
-            <i class="users icon"></i> 2 Members
+            <i class="users icon"></i> 2 APIs
           </a>
         </template>
       </sm-card>

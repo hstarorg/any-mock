@@ -6,8 +6,8 @@
   }
 </style>
 <template>
-  <div class="ace-editor" :style="{height: this.height + 'px'}">
-    <pre :id="editorId" :style="{height: this.height + 'px'}"></pre>
+  <div class="ace-editor">
+    <pre :id="editorId" :style="{'min-height': this.height + 'px'}"></pre>
   </div>
 </template>
 <script src="./ace-editor.controller.js"></script>

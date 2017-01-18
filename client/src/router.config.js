@@ -4,7 +4,10 @@ Vue.use(VueRouter);
 
 import { LayoutPage } from './pages/layout';
 import { Dashboard } from './pages/home';
-import { ProjectList, ProjectDetail, ProjectEdit } from './pages/project';
+import {
+  ProjectList, ProjectEdit,
+  ProjectDetail, ProjectApiList, ProjectApiEdit
+} from './pages/project';
 import { TeamList } from './pages/team';
 import { UserSetting } from './pages/setting';
 import { NotFound } from './pages/system';
@@ -24,8 +27,13 @@ const routes = [
       { path: 'team', component: TeamList },
       { path: 'project', component: ProjectList },
       { path: 'project/new', component: ProjectEdit },
-      { path: 'project/:id', component: ProjectDetail },
       { path: 'project/:id/edit', component: ProjectEdit },
+      {
+        path: 'project/:id', component: ProjectDetail, children: [
+          { path: 'apis', component: ProjectApiList },
+          { path: 'new', component: ProjectApiEdit }
+        ]
+      },
       { path: 'settings', component: UserSetting }
       // { path: 'app/apis', component: ApiList }
     ]

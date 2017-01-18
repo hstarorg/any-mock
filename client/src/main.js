@@ -1,3 +1,5 @@
+require('./styl/all.styl');
+
 import Vue from 'vue';
 import axios from 'axios';
 
@@ -7,6 +9,10 @@ import 'lodash';
 import Vue2Semantic from './vue2-semantic';
 Vue.use(Vue2Semantic);
 
+import { GLOBAL_FILTER_OBJECT } from './filters';
+Object.keys(GLOBAL_FILTER_OBJECT).forEach(k => {
+  Vue.filter(k, GLOBAL_FILTER_OBJECT[k]);
+});
 import App from './App';
 import router from './router.config';
 import store from './store';

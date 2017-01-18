@@ -47,7 +47,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 100
+      default: 300
     },
     readonly: {
       type: Boolean,
@@ -74,6 +74,8 @@ export default {
       editor.setOption('tabSize', 2);
       editor.setOption('enableSnippets', true);
       editor.setOption('showPrintMargin', false);
+      editor.setOption('minLines', 10);
+      editor.setOption('maxLines', 80);
       editor.setReadOnly(this.readonly);
       editor.setValue(this.value, 1);
       let self = this;
