@@ -26,15 +26,16 @@
 | --- | --- | --- |
 | id | shortid | API ID |
 | projectId | shortid | 所在的项目ID |
-| userId | shortid | 关联的用户ID |
 | groupId | shortid | 分组ID |
 | name | string | API名称 |
 | path | string | API PATH |
 | method | string | API 请求方法 |
-| res | {<br>headers: Array<{key: string, value: string>,<br>status: number, <br>content-type: string, <br>body: any<br>}  | 响应对象 |
+| res | {<br>headers: Array<{key: string, value: string>,<br>status: number, <br>contentType: string, <br>body: any<br>}  | 响应对象 |
 | filters | {condition: any, res} | 满足条件时，返回指定res |
 | createDate | number | 创建时间，Date.now() |
 | createBy | shortid | 创建人 |
+| lastUpdateDate | number | 最后更新时间 |
+| lastUpdateBy | shortid | 最后更新人 |
 | isEnable | boolean | 是否可用 |
 | enableProxy | boolean | 是否启用二次代理 |
 | proxyUrl | string | 二次代理URL |

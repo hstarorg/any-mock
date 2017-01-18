@@ -1,21 +1,28 @@
-const Joi = require('joi');
 const db = require('./../common/db');
 const util = require('./../common/util');
 const schemaStore = require('./schemaStore');
 
 const PROJECT_COLLECTION = 'projects';
 
+const _getProjectById = (id, userId, fieldsObj = {}) => {
+  return db.findOne(PROJECT_COLLECTION, { id }, fieldsObj)
+    .then(project => {
+      if (!project) {
+        return Promise.reject({ status: 404, message: 'Project not found.' });
+      }
+      return project;
+    })
+    .then(project => {
+
+      if (userId && project.createBy !== userId) {
+        return Promise.reject({ status: 401 });
+      }
+      return project;
+    });
+};
+
 const createProject = (req, res, next) => {
   schemaStore.validate(req.body, schemaStore.PROJECT_CREATE_SCHEMA)
-    .then(() => {
-      return db.findOne(PROJECT_COLLECTION, { name: req.body.name });
-    })
-    .then(data => {
-      if (data) {
-        return Promise.reject('project name exist.');
-      }
-      return '';
-    })
     .then(() => {
       let project = {
         id: util.generateId(),
@@ -26,13 +33,10 @@ const createProject = (req, res, next) => {
         groups: [{ groupId: util.generateId(), name: '默认分组' }],
         users: []
       };
-      return project;
-    })
-    .then(project => {
       return db.insert(PROJECT_COLLECTION, project);
     })
     .then(newDoc => {
-      return res.json(newDoc);
+      return res.send(newDoc);
     })
     .catch(next);
 };
@@ -41,19 +45,9 @@ const updateProject = (req, res, next) => {
   let projId = req.params.id;
   schemaStore.validate(req.body, schemaStore.PROJECT_CREATE_SCHEMA)
     .then(() => {
-      return db.findOne(PROJECT_COLLECTION, { id: projId })
+      return _getProjectById(projId, req.user.id);
     })
     .then(project => {
-      if (!project) {
-        return Promise.reject({ status: 404, message: 'Project not found' });
-      }
-      return project;
-    })
-    .then(project => {
-      if (project.createBy !== req.user.id) {
-        return Promise.reject({ status: 401 });
-      }
-      console.log(req.body);
       return db.update(PROJECT_COLLECTION, { id: projId }, { $set: req.body });
     })
     .then(numReplaced => {
@@ -67,17 +61,8 @@ const updateProject = (req, res, next) => {
 
 const deleteProject = (req, res, next) => {
   let projId = req.params.id;
-  db.findOne(PROJECT_COLLECTION, { id: projId })
+  _getProjectById(projId, req.user.id)
     .then(project => {
-      if (!project) {
-        return Promise.reject({ status: 404, message: 'Project not found' });
-      }
-      return project;
-    })
-    .then(project => {
-      if (project.createBy !== req.user.id) {
-        return Promise.reject({ status: 401 });
-      }
       return db.remove(PROJECT_COLLECTION, { id: projId });
     })
     .then(() => {
@@ -87,21 +72,17 @@ const deleteProject = (req, res, next) => {
 };
 
 const getProjectList = (req, res, next) => {
-  db.query(PROJECT_COLLECTION, { createBy: req.user.id }, { _id: 0, users: 0 }, {}, { pageIndex: 1, pageSize: Number.MAX_SAFE_INTEGER })
+  db.find(PROJECT_COLLECTION, { createBy: req.user.id }, { _id: 0, users: 0 })
     .then(result => {
-      console.log(result);
-      res.json(result);
+      res.send(result);
     })
     .catch(next);
 };
 
 const getProjectDetail = (req, res, next) => {
   let projId = req.params.id;
-  db.findOne(PROJECT_COLLECTION, { id: projId }, { _id: 0, users: 0 })
+  _getProjectById(projId, null, { _id: 0, users: 0 })
     .then(project => {
-      if (!project) {
-        return Promise.reject('Project not exist.');
-      }
       res.send(project);
     })
     .catch(next);

@@ -1,126 +1,110 @@
-let db = require('./../common/db');
-let util = require('./../common/util');
+const db = require('./../common/db');
+const util = require('./../common/util');
+const schemaStore = require('./schemaStore');
 
-let _hasAuth = (appId, userId, username) => {
-  return new Promise((resolve, reject) => {
-    let filterObj = {
-      appId: appId,
-      $or: [
-        { userId: userId },
-        { authorizedUser: { $elemMatch: username } }
-      ]
-    };
-    db.findOne('apps', filterObj)
-      .then(app => resolve(!!app))
-      .catch(reason => reject(reason));
-  });
-};
+const PROJECT_COLLECTION = 'projects';
+const API_COLLECTION = 'apis';
 
-let validateApi = (req, res, next) => {
-  let properties = ['apiName', 'apiPath', 'apiMethod', 'responseHeaders', 'responseStatus', 'responseContentType'];
-  for (let p of properties) {
-    if (!req.body[p]) {
-      return next(`${p} required`);
-    }
-  }
-  next();
-};
-
-let findApi = (req, res, next) => {
-  let appId = req.params.appId;
-  let apiId = req.params.apiId;
-  let user = req.reqData.user;
-  _hasAuth(appId, user.userId, user.username)
-    .then(isAuthed => {
-      if (!isAuthed) {
-        res.status(401);
-        return res.end();
+const hasProjectPremission = (req, res, next) => {
+  console.log(req.params);
+  let projId = req.params.projId;
+  let userId = req.user.id;
+  db.findOne(PROJECT_COLLECTION, { id: projId })
+    .then(project => {
+      if (!project) {
+        return next({ status: 404, message: 'Project not found.' });
       }
-      db.findOne('apis', { apiId: apiId })
-        .then(api => {
-          if (!api) {
-            res.status(404);
-            return res.end();
-          }
-          req.reqData.api = api;
-          next();
-        }).catch(reason => next(reason));
+      if (project.createBy !== userId && !project.users.find(x => x.userId === userId)) {
+        return next({ status: 401, message: 'No project premission.' });
+      }
+      next();
     });
-};
+}
 
-let createApi = (req, res, next) => {
-  let appId = req.params.appId;
-  let userId = req.reqData.user.userId;
-  let body = req.body;
-  _hasAuth(appId, userId, req.reqData.user.username)
-    .then(isAuthorized => {
-      if (!isAuthorized) return next('unauthorized.');
-      let apiEntity = {
-        appId: appId,
-        userId: userId,
-        createDate: Date.now(),
-        apiId: util.buildRandomString(),
-        apiName: body.apiName,
-        apiPath: body.apiPath,
-        apiMethod: body.apiMethod,
-        responseHeaders: body.responseHeaders,
-        responseStatus: body.responseStatus,
-        responseContentType: body.responseContentType,
-        responseData: body.responseData,
-        isEnable: true
-      };
-      db.apis.insert(apiEntity, (err, newApi) => {
-        if (err) return next(err);
-        res.status(201);
-        res.json(newApi);
+const createApi = (req, res, next) => {
+  let projId = req.params.projId;
+  let userId = req.user.id;
+  let now = Date.now();
+  schemaStore.validate(req.body, schemaStore.API_SCHEMA)
+    .then(() => {
+      let api = Object.assign({}, req.body, {
+        id: util.generateId(),
+        projectId: projId,
+        createDate: now,
+        createBy: userId,
+        lastUpdateDate: now,
+        lastUpdateBy: userId
       });
-    }).catch(reason => next(reason));
-};
-
-let updateApi = (req, res, next) => {
-  let apiId = req.params.apiId;
-  let body = req.body;
-
-  let updateEntity = {
-    $set: {
-      apiName: body.apiName,
-      apiPath: body.apiPath,
-      apiMethod: body.apiMethod,
-      responseHeaders: body.responseHeaders,
-      responseStatus: body.responseStatus,
-      responseContentType: body.responseContentType,
-      responseData: body.responseData,
-      isEnable: !!body.isEnable
-    }
-  };
-
-  db.apis.update({ apiId: apiId }, updateEntity, {}, (err, numReplaced) => {
-    if (err) return next(err);
-    if (numReplaced === 0) return next('update failed, please retry');
-    res.status(202);
-    res.json(true);
-  });
-};
-
-let getApi = (req, res, next) => {
-  return req.reqData.api;
-};
-
-let deleteApi = (req, res, next) => {
-  let apiId = req.params.apiId;
-  db.remove('apis', { _id: req.reqData.api._id })
-    .then(numRemoved => {
-      if (numRemoved === 0) return next('Delete failed, please retry.');
-      res.json(true);
+      return db.insert(API_COLLECTION, api);
     })
-    .catch(reason => next(reason));
+    .then(newApi => {
+      res.status(201).end();
+    })
+    .catch(next);
+};
+
+const getApiList = (req, res, next) => {
+  let projId = req.params.projId;
+  db.find(API_COLLECTION, { projectId: projId }, {}, {
+    groupId: 1,
+    createDate: 1
+  })
+    .then(result => {
+      res.send(result);
+    })
+    .catch(next);
+};
+
+const getApiDetail = (req, res, next) => {
+  let projId = req.params.projId;
+  let apiId = req.params.id;
+  db.findOne(API_COLLECTION, { id: apiId, projectId: projId })
+    .then(api => {
+      if (!api) {
+        return Promise.reject({ status: 404, message: 'Api not found.' });
+      }
+      res.send(api);
+    })
+    .catch(next);
+};
+
+const updateApi = (req, res, next) => {
+  let projId = req.params.projId;
+  let apiId = req.params.id;
+  let userId = req.user.id;
+  let now = Date.now();
+  schemaStore.validate(req.body, schemaStore.API_SCHEMA, { allowUnknown: false })
+    .then(() => {
+      let api = Object.assign({}, req.body, {
+        lastUpdateDate: now,
+        lastUpdateBy: userId
+      });
+      return db.update(API_COLLECTION, { projectId: projId, id: apiId }, api);
+    })
+    .then(numReplaced => {
+      res.end();
+    })
+    .catch(next);
+};
+
+const deleteApi = (req, res, next) => {
+  let projId = req.params.projId;
+  let apiId = req.params.id;
+  db.remove(API_COLLECTION, { projectId: projId, id: apiId })
+    .then(numRemoved => {
+      if (numRemoved === 0) {
+        return Promise.reject({ status: 500, message: 'Delete api failed, please retry.' });
+      }
+      res.end();
+    })
+    .catch(next);
 };
 
 module.exports = {
-  createApi: createApi,
-  updateApi: updateApi,
-  getApi: getApi,
-  deleteApi: deleteApi,
-  validateApi: validateApi,
-  findApi: findApi
+  hasProjectPremission,
+  createApi,
+  getApiList,
+  getApiDetail,
+  updateApi,
+  deleteApi
 };
