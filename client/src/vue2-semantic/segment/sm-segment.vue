@@ -1,5 +1,5 @@
 <template>
-  <div class="ui segment" :class="segmentClass">
+  <div class="ui segment sm-segment" :class="segmentClass">
     <slot></slot>
   </div>
 </template>

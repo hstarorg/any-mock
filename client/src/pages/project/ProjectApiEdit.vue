@@ -17,20 +17,14 @@
         <div class="field">
           <label>API Path</label>
           <div class="ui labeled left action input">
-            <div class="ui green dropdown simple label method-label">
-              <div class="text">{{api.method}}</div>
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="item" v-for="m in methods" @click="api.method = m">{{m}}</div>
-              </div>
-            </div>
+            <sm-dropdown :data="methods" v-model="api.method"></sm-dropdown>
             <div class="ui label no-radius">
-              http://chat.hstar.org:8601/e2607fcaf7fe
+              {{finalAddressHost}}
             </div>
-            <input type="text" placeholder="">
+            <input type="text" placeholder="" v-model="api.path">
           </div>
           <br>
-          <div class="ui message">Final Address: </div>
+          <div class="ui message"><strong>Final Address: </strong>&nbsp;{{finalAddress}}</div>
         </div>
         <div class="field">
           <label>Response Headers</label>
@@ -58,14 +52,12 @@
         <div class="two fields">
           <div class="field">
             <label>Response Status</label>
-            <select name="status" v-model="api.res.status">
-              <option v-for="status in statusList" :value="status.value" >{{status.name}}</option>
-            </select>
+            <sm-dropdown-list :data="statusList" placeholder="Select a response status" v-model.number="api.res.status"></sm-dropdown-list>
           </div>
           <div class="field">
             <label>Content-Type</label>
             <div class="ui left action input">
-              <div class="ui floating dropdown simple green button">
+              <div class="ui floating dropdown green button" ref="ctDropdown">
                 <div class="text">Choose</div>
                 <i class="dropdown icon"></i>
                 <div class="menu">
@@ -74,13 +66,13 @@
                   <div class="item" @click="disabledContentType = false">Custom</div>
                 </div>
               </div>
-              <input type="text" v-model="api.res.contentType" disabled="disabledContentType">
+              <input type="text" v-model="api.res.contentType" :disabled="disabledContentType">
             </div>
           </div>
         </div>
         <div class="field">
           <label>Response Body</label>
-          <ace-editor v-model="api.res.body" :mode="'json'" :theme="'ambiance'"></ace-editor>
+          <ace-editor v-model="api.res.body" :mode="editorMode" :theme="'ambiance'"></ace-editor>
         </div>
         <div class="ui buttons">
           <button class="ui button" @click.prevent="$router.push(pathForApiList)">Cancel</button>

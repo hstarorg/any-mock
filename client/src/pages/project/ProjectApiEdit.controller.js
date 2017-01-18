@@ -12,6 +12,7 @@ export default {
       statusList: responseStatus,
       contentTypeList: ['application/json', 'text/json', 'text/plain', 'application/xml', 'text/xml'],
       disabledContentType: true,
+      editorMode: 'json',
       apiId: '',
       api: {
         groupId: '',
@@ -36,11 +37,35 @@ export default {
   },
   created() {
     this.projectId = this.$route.params.id;
-    console.log(this.projectId);
+  },
+  mounted() {
+    let self = this;
+    $(this.$refs.ctDropdown).dropdown({
+      onChange(value, text, $selectedItem) {
+        $selectedItem.parent().parent().find('>div:eq(0)').text('Choose');
+        if (value === 'custom') {
+          self.disabledContentType = false;
+        } else {
+          self.disabledContentType = true;
+          self.api.res.contentType = value;
+        }
+      }
+    });
   },
   computed: {
     pathForApiList() {
       return `/project/${this.projectId}/apis`;
+    },
+    finalAddressHost() {
+      return `${AppConf.mockApiHost}/${this.projectId}`;
+    },
+    finalAddress() {
+      return `${this.finalAddressHost}${this.api.path}`;
+    }
+  },
+  watch: {
+    ['api.res.contentType'](newVal) {
+      this.setEditorMode(newVal);
     }
   },
   methods: {
@@ -53,6 +78,18 @@ export default {
         key: '',
         value: ''
       });
+    },
+    setEditorMode(contentType) {
+      if (contentType.indexOf('json') >= 0) {
+        this.editorMode = 'json';
+      } else if (contentType.indexOf('xml') >= 0) {
+        this.editorMode = 'xml';
+      } else {
+        this.editorMode = 'text';
+      }
+    },
+    doSubmit() {
+      console.log(this.api);
     }
   }
 }
