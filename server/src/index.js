@@ -9,7 +9,7 @@ const options = {
   port: config.port,
   enableCors: true,
   enableGzip: true,
-  apiPrefix: '/api/v1',
+  apiPrefix: '/',
   routesPath: path.join(__dirname, 'routes'),
   onRoutesLoading: app => {
     app.use(auth.init());

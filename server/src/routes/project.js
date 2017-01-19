@@ -20,5 +20,5 @@ router.post('/:id/member', projectBiz.addMember); // Add Member
 module.exports = {
   priority: 1000,
   router,
-  prefix: '/project'
+  prefix: '/api/v1/project'
 };

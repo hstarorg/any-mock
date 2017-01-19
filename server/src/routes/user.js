@@ -10,5 +10,5 @@ router.post('/autologin', userBiz.doAutoLogin);
 module.exports = {
   priority: 1000,
   router,
-  prefix: '/user'
+  prefix: '/api/v1/user'
 };

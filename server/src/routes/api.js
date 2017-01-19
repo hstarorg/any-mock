@@ -18,5 +18,5 @@ router.delete('/:projId/api/:id', apiBiz.hasProjectPremission, apiBiz.deleteApi)
 module.exports = {
   priority: 900,
   router,
-  prefix: '/project'
+  prefix: 'api/v1/project'
 };
