@@ -51,14 +51,11 @@
     methods: {
       init() {
         let self = this;
-        this.$element.dropdown({
-          onChange(value, text, $selectedItem) {
-            self.$emit('input', value);
-          }
-        });
+        this.$element.dropdown();
       },
       setValue(val) {
         this.content = val;
+        this.$emit('input', value);
         this.$element.dropdown('set selected', val);
       }
     }
