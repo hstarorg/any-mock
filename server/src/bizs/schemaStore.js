@@ -26,12 +26,12 @@ const API_SCHEMA = Joi.object().keys({
     })),
     contentType: Joi.string().required(),
     status: Joi.number().required(),
-    body: Joi.object().required()
+    body: Joi.any()
   }),
   filters: Joi.array(),
   isEnable: Joi.boolean(),
   enableProxy: Joi.boolean(),
-  proxyUrl: Joi.string()
+  proxyUrl: Joi.any()
 });
 
 module.exports = {
