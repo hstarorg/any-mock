@@ -79,7 +79,7 @@ const updateApi = (req, res, next) => {
         lastUpdateDate: now,
         lastUpdateBy: userId
       });
-      return db.update(API_COLLECTION, { projectId: projId, id: apiId }, api);
+      return db.update(API_COLLECTION, { projectId: projId, id: apiId }, { $set: api });
     })
     .then(numReplaced => {
       res.end();
