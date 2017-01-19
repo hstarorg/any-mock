@@ -4,6 +4,9 @@
       position: absolute;
       right: 5px;
     }
+    .w-80{
+      width: 80px;
+    }
   }
 </style>
 <template>
@@ -14,7 +17,7 @@
         <i class="plus icon"></i>Add Api
       </button>
     </div>
-    <table class="ui sortable celled striped selectable black compact table">
+    <table class="ui sortable celled striped selectable black very compact table">
       <thead>
         <tr>
           <th class="collapsing sorted descending"><i class="heartbeat icon"></i></th>
@@ -27,28 +30,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>fdasf</td>
-          <td>fdasfas</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr v-for="(api,index) in apiList">
+          <td class="text-center">{{index + 1}}</td>
+          <td>{{ api.name }}</td>
+          <td class="collapsing">
+            <div class="ui label">
+              {{ api.method }}
+            </div>
+          </td>
+          <td>{{api.path}}</td>
+          <td class="collapsing">
+            <sm-checkbox v-model="api.isEnable" :disabled="true"></sm-checkbox>
+          </td>
+          <td class="collapsing">
+            <sm-checkbox v-model="api.enableProxy" :disabled="true"></sm-checkbox>
+          </td>
           <td class="collapsing align center">
-            <div class="ui right pointing dropdown" tabindex="0">
-              <div class="basic compact blue ui icon button">
-                <i class="wrench icon"></i>
-              </div>
-              <div class="menu transition hidden" tabindex="-1">
-                <a class="item"><i  class="green refresh icon"></i> Restart</a>
-                <a class="item"><i  class="black stop icon"></i> Stop</a>
-                <a class="item">
-                  <i class="line chart icon"></i> Monitor
-                </a>
-                <a class="item">
-                  <i class="text file outline icon"></i> Logs
-                </a>
-              </div>
+            <div class="basic compact mini blue ui icon button" title="Show Detail" @click="doApiOperate('detail', api)">
+              <i class="newspaper icon"></i>
+            </div>
+            <div class="basic compact mini blue ui icon button" title="Edit API" @click="doApiOperate('edit', api)">
+              <i class="edit icon"></i>
+            </div>
+            <div class="basic compact mini blue ui icon button" title="Delete API" @click="doApiOperate('delete', api)">
+              <i class="minus icon"></i>
             </div>
           </td>
         </tr>

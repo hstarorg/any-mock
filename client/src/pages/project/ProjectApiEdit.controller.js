@@ -38,7 +38,9 @@ export default {
   },
   created() {
     this.projectId = this.$route.params.id;
+    this.apiId = this.$route.params.apiId;
     this.getProjectGroups();
+    this.initApi();
   },
   mounted() {
     let self = this;
@@ -71,6 +73,19 @@ export default {
     }
   },
   methods: {
+    initApi() {
+      if (this.apiId) {
+        ajax.get(`${AppConf.apiHost}/project/${this.projectId}/api/${this.apiId}`)
+          .then(api => {
+            Object.keys(this.api).forEach(k => {
+              this.api[k] = api[k];
+            });
+          })
+          .catch(() => {
+            this.$router.push(`/project/${this.projectId}/apis`);
+          });
+      }
+    },
     getProjectGroups() {
       ajax.get(`${AppConf.apiHost}/project/${this.projectId}`)
         .then(p => {
@@ -114,12 +129,19 @@ export default {
         return layer.error('Response headers must provider key and value.');
       }
       apiCopy.res.headers = headers;
-      ajax.post(`${AppConf.apiHost}/project/${this.projectId}/api/new`, apiCopy)
-        .then(data => {
-          layer.msg('Create api successfully.', () => {
-            this.$router.push(`/project/${this.projectId}/api`);
+      if (this.apiId) { // Edit
+        ajax.put(`${AppConf.apiHost}/project/${this.projectId}/api/${this.apiId}`, apiCopy)
+          .then(() => {
+            layer.msg('Save api successfully.');
           });
-        });
+      } else { // Add
+        ajax.post(`${AppConf.apiHost}/project/${this.projectId}/api/new`, apiCopy)
+          .then(data => {
+            layer.msg('Create api successfully.', () => {
+              this.$router.push(`/project/${this.projectId}/apis`);
+            });
+          });
+      }
     }
   }
 }

@@ -6,7 +6,7 @@ import { LayoutPage } from './pages/layout';
 import { Dashboard } from './pages/home';
 import {
   ProjectList, ProjectEdit,
-  ProjectDetail, ProjectApiList, ProjectApiEdit
+  ProjectDetail, ProjectApiList, ProjectApiEdit, ProjectApiDetail
 } from './pages/project';
 import { TeamList } from './pages/team';
 import { UserSetting } from './pages/setting';
@@ -31,7 +31,9 @@ const routes = [
       {
         path: 'project/:id', component: ProjectDetail, children: [
           { path: 'apis', component: ProjectApiList },
-          { path: 'new', component: ProjectApiEdit }
+          { path: 'new', component: ProjectApiEdit },
+          { path: 'api/:apiId', component: ProjectApiDetail },
+          { path: 'api/:apiId/edit', component: ProjectApiEdit }
         ]
       },
       { path: 'settings', component: UserSetting }

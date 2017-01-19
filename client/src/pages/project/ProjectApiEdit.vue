@@ -11,7 +11,8 @@
 <template>
   <div class="page-project-api-edit">
     <sm-segment type="stacked">
-      <h3>Create New Api <button type="button" class="ui button float-right" @click="$router.push(pathForApiList)"><i class="reply icon"></i>Return API List</button></h3>
+      <h3> {{this.apiId ? 'Edit Api': 'Create New Api' }}
+        <button type="button" class="ui button float-right" @click="$router.push(pathForApiList)"><i class="reply icon"></i>Return API List</button></h3>
       <form class="ui small form" @submit.prevent="doSubmit()">
         <div class="fields">
           <div class="twelve wide field">
@@ -40,10 +41,10 @@
           <sm-segment class="small">
             <div class="fields" v-for="header in api.res.headers">
               <div class="six wide field">
-                <input type="text" name="headerKey" maxlength="16" placeholder="key" v-model="header.key">
+                <input type="text" name="headerKey" placeholder="key" v-model="header.key">
               </div>
               <div class="six wide field">
-                <input type="text" name="headerValue" maxlength="3" placeholder="value" v-model="header.value">
+                <input type="text" name="headerValue" placeholder="value" v-model="header.value">
               </div>
               <div class="four wide field">
                 <button type="button" class="ui icon small button" @click="removeResHeader(header)"><i class="minus icon"></i></button>

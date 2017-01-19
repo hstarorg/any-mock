@@ -22,6 +22,15 @@ export default {
           this.apiList = data;
           console.log(data);
         });
+    },
+    doApiOperate(type, api) {
+      if (type === 'detail') {
+        this.$router.push(`/project/${this.projectId}/api/${api.id}`);
+      } else if (type === 'edit') {
+        this.$router.push(`/project/${this.projectId}/api/${api.id}/edit`);
+      } else if (type === 'delete') {
+        layer.error('禁止删除');
+      }
     }
   }
 };

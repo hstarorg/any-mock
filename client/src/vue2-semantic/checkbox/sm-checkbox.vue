@@ -2,7 +2,7 @@
   .sm-checkbox{}
 </style>
 <template>
-  <div class="ui checkbox cye-lm-tag sm-checkbox" :class="innerClass" @click.stop="checked = !checked">
+  <div class="ui checkbox cye-lm-tag sm-checkbox" :class="innerClass" @click.stop="changeStatus()">
     <input type="checkbox" :name="name" tabindex="0" class="hidden" v-model="checked">
     <label class="cye-lm-tag"><slot></slot></label>
   </div>
@@ -65,6 +65,13 @@
       },
       value(newVal) {
         this.checked = newVal;
+      }
+    },
+    methods: {
+      changeStatus() {
+        if (!this.disabled && !this.readonly) {
+          this.checked = !this.checked;
+        }
       }
     }
   };
