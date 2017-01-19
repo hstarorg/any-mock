@@ -1,5 +1,5 @@
 <style lang="stylus">
-  .app-login{
+  .page-login{
     min-height: 100vh;
     background: #DADADA;
     .aligned.grid{
@@ -10,17 +10,10 @@
       width: 450px !important;
     }
   }
-  .login-panel {
-    margin-top: calc(50vh - 150px);
-  }
-
-  .redirect-register {
-    font-size: 12px;
-  }
 </style>
 
 <template>
-  <div class="app-login">
+  <div class="page-login">
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui teal image header">

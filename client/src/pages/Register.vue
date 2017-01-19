@@ -1,35 +1,54 @@
-<style scoped>
-  .register-panel {
-    margin-top: calc(50vh - 150px);
-  }
-  .redirect-login{
-    font-size: 12px;
+<style lang="stylus">
+  .page-register{
+    min-height: 100vh;
+    background: #DADADA;
+    .aligned.grid{
+      margin: 0;
+    }
+    .column{
+      margin-top: calc(50vh - 220px);
+      width: 450px !important;
+    }
   }
 </style>
 
 <template>
-  <div class="app-register">
-    <div class="container">
-      <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4 register-panel">
-        <div class="panel panel-info">
-          <div class="panel-heading text-center">
-            Register To Any-Mock
+  <div class="page-register">
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Resigter to ANY-MOCK
           </div>
-          <div class="panel-body">
-            <form class="form-signin" role="form">
-              <input type="text" class="form-control" placeholder="user name" required autofocus v-model="user.username">
-              <br>
-              <input type="password" class="form-control" placeholder="password" required v-model="user.password">
-              <br>
-              <input type="password" class="form-control" placeholder="confirm password" required v-model="user.confirmPassword">
-              <br>
-              <button class="btn btn-primary btn-block" type="submit" @click.prevent="doLogin()">Register</button>
-              <br>
-              <div class="redirect-login">
-                Has account? Please <a href="javascript:void(0)" v-link="{path: '/login'}"><b class="text-danger">click this</b></a> to login.
+        </h2>
+        <form class="ui large form" @submit.prevent="doRegister()">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" placeholder="user name" required autofocus v-model="user.username">
               </div>
-            </form>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="password" required v-model="user.password">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="confirm password" required v-model="user.confirmPassword">
+              </div>
+            </div>
+            <button class="ui fluid large teal submit button">Register</button>
           </div>
+          <div class="ui error message"></div>
+        </form>
+
+        <div class="ui message">
+          Has account?
+          <router-link :to="{path: '/login'}"><b class="text-danger">Sign In</b></router-link>
         </div>
       </div>
     </div>
@@ -45,27 +64,23 @@
           username: '',
           password: '',
           confirmPassword: ''
-        },
-        remember: false
+        }
       };
     },
-    created() {
-    },
     methods: {
-      doLogin() {
-        if(!this.user.username || !this.user.password){
+      doRegister() {
+        if (!this.user.username || !this.user.password) {
           return layer.msg('username and password required.');
         }
-        if(this.user.password !== this.user.confirmPassword){
+        if (this.user.password !== this.user.confirmPassword) {
           return layer.msg('password is not equal to confirm password.');
         }
-        ajax.post(`${AppConf.apiHost}/manage/register`, this.user)
-        .then(res => {
-          let data = res.json();
-          layer.msg('register successfully.', { time: 1500 }, () => {
-            this.$router.go('/login');
+        ajax.post(`${AppConf.apiHost}/user/register`, this.user)
+          .then(res => {
+            layer.msg('register successfully.', { time: 1500 }, () => {
+              this.$router.push('/login');
+            });
           });
-        });
       }
     }
   };

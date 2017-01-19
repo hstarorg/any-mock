@@ -23,22 +23,20 @@ let createUser = (req, res, next) => {
   let body = req.body;
   _getUser(body.username)
     .then(user => {
-      if (user) return next(new Error('user exists.'));
+      if (user) {
+        return Promise.reject('User exists.');
+      }
       let userEntity = {
-        userId: util.buildRandomString(),
+        userId: util.generateId(),
         username: body.username,
         password: body.password,
-        createDate: Date.now(),
-        accessToken: '',
-        expiredTime: Date.now()
+        createDate: Date.now()
       };
-      db.users.insert(userEntity, (err, newUser) => {
-        if (err) return next(err);
-        res.status(201);
-        res.json('Created');
-      });
+      return db.insert(USER_COLLECTION, userEntity);
     })
-    .catch(reason => next(reason));
+    .then(newUser => {
+      res.status(201).send('Created');
+    }).catch(next);
 };
 
 let validateUserInfo = (req, res, next) => {
@@ -95,9 +93,9 @@ const doAutoLogin = (req, res, next) => {
 };
 
 module.exports = {
-  validateUserInfo: validateUserInfo,
-  createUser: createUser,
-  doLogin: doLogin,
+  validateUserInfo,
+  createUser,
+  doLogin,
   doLogout: doLogout,
   auth: auth,
   doAutoLogin,

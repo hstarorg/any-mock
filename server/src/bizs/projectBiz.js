@@ -73,7 +73,10 @@ const deleteProject = (req, res, next) => {
 };
 
 const getProjectList = (req, res, next) => {
-  db.find(PROJECT_COLLECTION, { createBy: req.user.id }, { _id: 0 })
+  let projectFilter = {
+    $or: [{ createBy: req.user.id }, { 'users.userId': req.user.id }]
+  };
+  db.find(PROJECT_COLLECTION, projectFilter, { _id: 0 })
     .then(result => {
       res.send(result);
     })
