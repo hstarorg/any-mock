@@ -18,17 +18,17 @@
   <div class="page-project-detail">
     <div class="ui visible inverted left vertical sidebar menu project-menu">
       <div class="ui inverted">
-        <a class="item menu active">
+        <a class="item menu" :class="{active: currentMenu === 'apis'}" @click.stop="goPage('apis')">
           <i class="list icon"></i>
           <span>API List</span>
         </a>
-        <a class="item menu">
+        <a class="item menu" :class="{active: currentMenu === 'group'}" @click.stop="goPage('group')">
           <i class="group icon"></i>
           <span>Group Manage</span>
         </a>
-        <a class="item menu">
+        <a class="item menu" :class="{active: currentMenu === 'settings'}" @click.stop="goPage('settings')">
           <i class="cogs icon"></i>
-          <span>Options</span>
+          <span>Settings</span>
         </a>
       </div>
     </div>

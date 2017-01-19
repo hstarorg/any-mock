@@ -20,7 +20,6 @@ export default {
       ajax.get(`${AppConf.apiHost}/project/${this.projectId}/api`)
         .then(data => {
           this.apiList = data;
-          console.log(data);
         });
     },
     doApiOperate(type, api) {

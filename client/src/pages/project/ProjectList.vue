@@ -14,7 +14,7 @@
 <template>
   <div class="page-project-list ui container">
     <div class="ui secondary pointing menu">
-      <a class="item active"> API List </a>
+      <a class="item active"> Project List </a>
       <button class="ui green button btn-add-project" @click="$router.push('/project/new')"><i class="plus icon"></i>Add Project</button>
     </div>
     <sm-cards is-link>

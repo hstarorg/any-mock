@@ -9,11 +9,13 @@ router.post('/new', projectBiz.createProject); // Create
 
 router.get('/', projectBiz.getProjectList); // Get List
 
-router.get('/:id', projectBiz.getProjectDetail) // Get Single
+router.get('/:id', projectBiz.getProjectDetail); // Get Single
 
-router.put('/:id', projectBiz.updateProject) // Update
+router.put('/:id', projectBiz.updateProject); // Update
 
-router.delete('/:id', projectBiz.deleteProject) // Delete
+router.delete('/:id', projectBiz.deleteProject); // Delete
+
+router.post('/:id/member', projectBiz.addMember); // Add Member
 
 module.exports = {
   priority: 1000,

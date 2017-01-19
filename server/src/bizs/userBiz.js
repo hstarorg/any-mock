@@ -1,7 +1,13 @@
-let db = require('./../common/db');
-let util = require('./../common/util');
+const db = require('./../common/db');
+const util = require('./../common/util');
 
 const USER_TOKEN_TIMESPAN = 1000 * 60 * 60 * 24 * 7; // 7天
+
+const USER_COLLECTION = 'users';
+
+const getUser = username => {
+  return db.findOne(USER_COLLECTION, { username });
+};
 
 let _getUser = (username) => {
   return new Promise((resolve, reject) => {
@@ -101,5 +107,6 @@ module.exports = {
   doLogin: doLogin,
   doLogout: doLogout,
   auth: auth,
-  doAutoLogin: doAutoLogin
+  doAutoLogin: doAutoLogin,
+  getUser
 };

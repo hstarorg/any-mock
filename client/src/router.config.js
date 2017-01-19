@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 import { LayoutPage } from './pages/layout';
 import { Dashboard } from './pages/home';
 import {
-  ProjectList, ProjectEdit,
+  ProjectList, ProjectEdit, ProjectSettings, ProjectGroup,
   ProjectDetail, ProjectApiList, ProjectApiEdit, ProjectApiDetail
 } from './pages/project';
 import { TeamList } from './pages/team';
@@ -30,6 +30,8 @@ const routes = [
       { path: 'project/:id/edit', component: ProjectEdit },
       {
         path: 'project/:id', component: ProjectDetail, children: [
+          { path: 'group', component: ProjectGroup },
+          { path: 'settings', component: ProjectSettings },
           { path: 'apis', component: ProjectApiList },
           { path: 'new', component: ProjectApiEdit },
           { path: 'api/:apiId', component: ProjectApiDetail },

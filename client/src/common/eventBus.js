@@ -10,7 +10,6 @@ class EventBus {
     let eventObj = bus.$on(eventName, handler.bind(scope || null));
     if(scope){
       scope.$on('$beforeDestroy', () => {
-        console.log('des');
         eventObj.$destory();
       });
     }

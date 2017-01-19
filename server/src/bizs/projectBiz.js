@@ -1,6 +1,7 @@
 const db = require('./../common/db');
 const util = require('./../common/util');
 const schemaStore = require('./schemaStore');
+const userBiz = require('./userBiz');
 
 const PROJECT_COLLECTION = 'projects';
 
@@ -72,7 +73,7 @@ const deleteProject = (req, res, next) => {
 };
 
 const getProjectList = (req, res, next) => {
-  db.find(PROJECT_COLLECTION, { createBy: req.user.id }, { _id: 0, users: 0 })
+  db.find(PROJECT_COLLECTION, { createBy: req.user.id }, { _id: 0 })
     .then(result => {
       res.send(result);
     })
@@ -81,9 +82,37 @@ const getProjectList = (req, res, next) => {
 
 const getProjectDetail = (req, res, next) => {
   let projId = req.params.id;
-  _getProjectById(projId, null, { _id: 0, users: 0 })
+  _getProjectById(projId, null, { _id: 0 })
     .then(project => {
       res.send(project);
+    })
+    .catch(next);
+};
+
+const addMember = (req, res, next) => {
+  let projId = req.params.id;
+  let pushMember;
+  schemaStore.validate(req.body, schemaStore.PROJECT_MEMBER_SCHEMA)
+    .then(() => {
+      return Promise.all([
+        _getProjectById(projId, req.user.id),
+        userBiz.getUser(req.body.memberName)
+      ]);
+    })
+    .then(results => {
+      if (!results[1]) {
+        return Promise.reject({ status: 404, message: 'Member not found.' });
+      }
+      pushMember = {
+        userId: results[1].id, role: 'admin', username: results[1].username
+      };
+      return db.update(PROJECT_COLLECTION, { id: projId }, { $push: { users: pushMember } });
+    })
+    .then(numReplaced => {
+      if (numReplaced === 0) {
+        return Promise.reject({ status: 500, message: 'Faild, please retry.' });
+      }
+      res.send(pushMember);
     })
     .catch(next);
 };
@@ -93,5 +122,6 @@ module.exports = {
   getProjectDetail,
   updateProject,
   deleteProject,
-  getProjectList
+  getProjectList,
+  addMember
 };

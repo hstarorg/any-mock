@@ -17,7 +17,7 @@
 | createDate | number | 创建时间，Date.now() |
 | createBy | shortid | 创建人 |
 | groups | Array<{groupId: shortid, name: string}> | API分组 |
-| users | Array<{userId: shortid, role: string}> | 项目的人员列表 |
+| users | Array<{userId: shortid, role: string, username: string}> | 项目的人员列表 |
 
 
 ## 2、API信息表

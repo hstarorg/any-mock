@@ -34,8 +34,13 @@ const API_SCHEMA = Joi.object().keys({
   proxyUrl: Joi.any()
 });
 
+const PROJECT_MEMBER_SCHEMA = Joi.object().keys({
+  memberName: Joi.string().required()
+});
+
 module.exports = {
   validate,
   PROJECT_CREATE_SCHEMA,
-  API_SCHEMA
+  API_SCHEMA,
+  PROJECT_MEMBER_SCHEMA
 };
