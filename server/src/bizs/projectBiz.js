@@ -14,7 +14,6 @@ const _getProjectById = (id, userId, fieldsObj = {}) => {
       return project;
     })
     .then(project => {
-
       if (userId && project.createBy !== userId) {
         return Promise.reject({ status: 401 });
       }

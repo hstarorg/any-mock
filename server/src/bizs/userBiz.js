@@ -27,7 +27,7 @@ let createUser = (req, res, next) => {
         return Promise.reject('User exists.');
       }
       let userEntity = {
-        userId: util.generateId(),
+        id: util.generateId(),
         username: body.username,
         password: body.password,
         createDate: Date.now()

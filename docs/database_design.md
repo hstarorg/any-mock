@@ -6,6 +6,8 @@
 | --- | --- | --- |
 | id | shortid | User ID |
 | username | string | User Name |
+| password | string | 密码 |
+| createDate | number | 创建时间 |
 
 ## 1、项目信息表
 

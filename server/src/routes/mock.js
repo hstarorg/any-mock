@@ -3,7 +3,7 @@
 var mockapiBiz = require('./../bizs/mockBiz');
 let router = Router();
 
-router.all('/:appId([0-9a-z]{12})/*',
+router.all('/:id([0-9a-zA-Z\-_]{9})/*',
   mockapiBiz.matchUri,
   mockapiBiz.responseData
 );

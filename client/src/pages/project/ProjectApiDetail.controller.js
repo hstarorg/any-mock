@@ -47,7 +47,7 @@ export default {
       return `/project/${this.projectId}/apis`;
     },
     finalAddress() {
-      return `${this.finalAddressHost}${this.api.path}`;
+      return `${AppConf.apiHost}/${this.projectId}${this.api.path}`;
     },
     groupName() {
       let g = this.groupList.find(x => x.groupId === this.api.groupId);
