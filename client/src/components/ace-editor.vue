@@ -6,7 +6,7 @@
   }
 </style>
 <template>
-  <div class="ace-editor">
+  <div class="ace-editor" :style="{'min-height': this.height + 'px'}">
     <pre :id="editorId" :style="{'min-height': this.height + 'px'}"></pre>
   </div>
 </template>

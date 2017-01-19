@@ -3,6 +3,8 @@ import SmCard from './card/sm-card';
 import SmSegment from './segment/sm-segment';
 import SmDropdown from './dropdown/sm-dropdown';
 import SmDropdownList from './dropdown/sm-dropdown-list';
+import SmCheckbox from './checkbox/sm-checkbox';
+import SmRadio from './checkbox/sm-radio';
 
 // All components.
 const COMPONENTS = [
@@ -10,7 +12,9 @@ const COMPONENTS = [
   SmCard,
   SmSegment,
   SmDropdown,
-  SmDropdownList
+  SmDropdownList,
+  SmCheckbox,
+  SmRadio
 ];
 
 const install = function (Vue) {

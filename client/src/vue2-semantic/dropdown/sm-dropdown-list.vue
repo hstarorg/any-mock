@@ -8,7 +8,7 @@
     <div class="default text">{{placeholder}}</div>
     <i class="dropdown icon"></i>
     <div class="menu">
-      <div class="item" :data-value="item.value" v-for="item in data">{{item.name}}</div>
+      <div class="item" :data-value="item.value" v-for="item in innerData">{{item.text}}</div>
     </div>
   </div>
 </template>
@@ -23,6 +23,14 @@
       placeholder: {
         type: String,
         default: ''
+      },
+      textField: {
+        type: String,
+        default: 'text'
+      },
+      valueField: {
+        type: String,
+        default: 'value'
       },
       class: {
         type: String,
@@ -45,6 +53,18 @@
       innerClass() {
         let classArr = [];
         return classArr;
+      },
+      innerData() {
+        if (this.data.length <= 0) {
+          return [];
+        }
+        let result;
+        if (typeof this.data[0] !== 'object') {
+          result = this.data.map(x => ({ value: x, text: x }));
+        } else {
+          result = this.data.map(x => ({ value: x[this.valueField], text: x[this.textField] }));
+        }
+        return result;
       }
     },
     watch: {
@@ -62,7 +82,9 @@
         });
       },
       setValue(val) {
-        this.$element.dropdown('set selected', val);
+        setTimeout(() => {
+          this.$element.dropdown('set selected', val);
+        });
       }
     }
   }

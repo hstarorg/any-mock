@@ -47,7 +47,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 300
+      default: 200
     },
     readonly: {
       type: Boolean,
@@ -68,14 +68,10 @@ export default {
       editor.session.setMode(`ace/mode/${this.mode}`);
       editor.setTheme(`ace/theme/${this.theme}`);
       editor.setFontSize(14);
-      editor.setOption('enableBasicAutocompletion', true);
-      editor.setOption('enableEmmet', true);
-      editor.setOption('enableLiveAutocompletion', false);
       editor.setOption('tabSize', 2);
-      editor.setOption('enableSnippets', true);
       editor.setOption('showPrintMargin', false);
       editor.setOption('minLines', 10);
-      editor.setOption('maxLines', 80);
+      editor.setOption('maxLines', 20);
       editor.setReadOnly(this.readonly);
       editor.setValue(this.value, 1);
       let self = this;

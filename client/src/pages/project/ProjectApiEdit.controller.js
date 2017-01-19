@@ -1,5 +1,5 @@
 import { aceEditor } from 'components';
-import { responseStatus } from './../../common';
+import { ajax, layer, responseStatus } from './../../common';
 
 export default {
   components: {
@@ -14,6 +14,7 @@ export default {
       disabledContentType: true,
       editorMode: 'json',
       apiId: '',
+      groupList: [],
       api: {
         groupId: '',
         name: '',
@@ -37,6 +38,7 @@ export default {
   },
   created() {
     this.projectId = this.$route.params.id;
+    this.getProjectGroups();
   },
   mounted() {
     let self = this;
@@ -69,6 +71,13 @@ export default {
     }
   },
   methods: {
+    getProjectGroups() {
+      ajax.get(`${AppConf.apiHost}/project/${this.projectId}`)
+        .then(p => {
+          this.groupList = p.groups;
+          this.api.groupId = this.groupList[0].groupId;
+        });
+    },
     removeResHeader(header) {
       let headerIndex = this.api.res.headers.indexOf(header);
       this.api.res.headers.splice(headerIndex, 1);
@@ -89,7 +98,28 @@ export default {
       }
     },
     doSubmit() {
-      console.log(this.api);
+      let apiCopy = _.cloneDeep(this.api);
+      let headers = [];
+      let hasHeaderError = false;
+      apiCopy.res.headers.forEach(h => {
+        if (!h.key && !h.value) {
+          return;
+        }
+        if (h.key && h.value) {
+          return headers.push(h);
+        }
+        hasHeaderError = true;
+      });
+      if (hasHeaderError) {
+        return layer.error('Response headers must provider key and value.');
+      }
+      apiCopy.res.headers = headers;
+      ajax.post(`${AppConf.apiHost}/project/${this.projectId}/api/new`, apiCopy)
+        .then(data => {
+          layer.msg('Create api successfully.', () => {
+            this.$router.push(`/project/${this.projectId}/api`);
+          });
+        });
     }
   }
 }
