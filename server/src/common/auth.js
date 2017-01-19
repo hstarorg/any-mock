@@ -9,7 +9,6 @@ module.exports = {
       } else {
         req.user = null;
       }
-      req.user = { id: 'xxx', username: 'admin' };
       next();
     };
   },

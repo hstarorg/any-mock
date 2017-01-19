@@ -16,10 +16,19 @@ export default {
       this.currentMenu = menu.name;
     }
   },
+  computed: {
+    user() {
+      return this.$store.state.userInfo;
+    }
+  },
   methods: {
     doMenuClick(menu) {
       this.currentMenu = menu.name;
       this.$router.push(menu.url);
+    },
+    signOut() {
+      localStorage.removeItem('x-token');
+      this.$router.push('/login');
     }
   }
 };

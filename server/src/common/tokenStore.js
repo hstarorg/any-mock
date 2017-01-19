@@ -1,6 +1,6 @@
 const LRU = require('lru-cache');
 const options = {
-  maxAge: 10 // 1000 * 60 * 60 * 24 * 1 // 1天
+  maxAge: 1000 * 60 * 60 * 24 * 1 // 1天
 };
 const tokenStore = LRU(options);
 

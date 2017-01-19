@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+import { authService } from './services';
+
 import { LayoutPage } from './pages/layout';
 import { Dashboard } from './pages/home';
 import {
@@ -11,18 +13,15 @@ import {
 import { TeamList } from './pages/team';
 import { UserSetting } from './pages/setting';
 import { NotFound } from './pages/system';
-import Welcome from './pages/Welcome';
-// import AppList from './pages/AppList';
-// import ApiList from './pages/ApiList';
-// import Search from './pages/Search';
-// import Register from './pages/Register';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 /* 路由配置 */
 const routes = [
-  // { path: '/login', component: Login },
-  // { path: '/register', component: Register },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
   {
-    path: '', component: LayoutPage, children: [
+    path: '', component: LayoutPage, meta: { auth: true }, children: [
       { path: '', component: Dashboard },
       { path: 'team', component: TeamList },
       { path: 'project', component: ProjectList },
@@ -39,7 +38,6 @@ const routes = [
         ]
       },
       { path: 'settings', component: UserSetting }
-      // { path: 'app/apis', component: ApiList }
     ]
   },
   { path: '*', component: NotFound }
@@ -54,8 +52,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 如果有路由匹配到了auth属性
   if (to.matched.some(record => record.meta.auth)) {
-    // todo 此处应该做登录
-    next();
+    authService.validAuth(to, from, next);
   } else {
     next();
   }

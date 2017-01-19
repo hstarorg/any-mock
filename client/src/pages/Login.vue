@@ -1,4 +1,15 @@
-<style scoped>
+<style lang="stylus">
+  .app-login{
+    min-height: 100vh;
+    background: #DADADA;
+    .aligned.grid{
+      margin: 0;
+    }
+    .column{
+      margin-top: calc(50vh - 220px);
+      width: 450px !important;
+    }
+  }
   .login-panel {
     margin-top: calc(50vh - 150px);
   }
@@ -10,29 +21,38 @@
 
 <template>
   <div class="app-login">
-    <div class="container">
-      <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4 login-panel">
-        <div class="panel panel-danger">
-          <div class="panel-heading text-center">
-            Log In Any-Mock
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Log-in to ANY-MOCK
           </div>
-          <div class="panel-body">
-            <form class="form-signin" role="form">
-              <input type="text" class="form-control" placeholder="user name" required autofocus v-model="user.username">
-              <br>
-              <input type="password" class="form-control" placeholder="password" required v-model="user.password">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me" v-model="remember"> Remember
-                </label>
+        </h2>
+        <form class="ui large form" @submit.prevent="doLogin()">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" placeholder="user name" required autofocus v-model="user.username">
               </div>
-              <button class="btn btn-danger btn-block" type="submit" @click.prevent="doLogin()">Log&nbsp;In</button>
-              <br>
-              <div class="redirect-register">
-                No account? Please <a href="javascript:void(0)" v-link="{path: '/register'}"><b class="text-danger">click this</b></a>                to register.
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" placeholder="password" required v-model="user.password">
               </div>
-            </form>
+            </div>
+            <div class="field text-left">
+              <sm-checkbox v-model="remember">Remember me</sm-checkbox>
+            </div>
+            <button class="ui fluid large teal submit button">Login</button>
           </div>
+          <div class="ui error message"></div>
+        </form>
+
+        <div class="ui message">
+          New to us?
+          <router-link :to="{path: '/register'}"><b class="text-danger">Sign Up</b></router-link>
         </div>
       </div>
     </div>
@@ -41,13 +61,8 @@
 
 <script>
   import { ajax } from './../common';
-  import { setUserInfo } from './../vuex/actions';
+  import { authService } from './../services';
   export default {
-    vuex: {
-      actions: {
-        setUserInfo
-      }
-    },
     data() {
       return {
         user: {
@@ -59,28 +74,25 @@
     },
     created() {
       let username = localStorage.getItem('username');
-      if(username){
+      if (username) {
         this.user.username = username;
         this.remember = true;
       }
     },
     methods: {
       doLogin() {
-        if(!this.user.username || !this.user.password){
+        if (!this.user.username || !this.user.password) {
           return layer.msg('username and password required.');
         }
-        ajax.post(`${AppConf.apiHost}/manage/login`, this.user)
-        .then(res => {
-          if(this.remember){
-            localStorage.setItem('username', this.user.username);
-          }else{
-            localStorage.removeItem('username');
-          }
-          let data = res.json();
-          this.setUserInfo({username: this.user.username});
-          localStorage.setItem('token', data.token);
-          this.$router.go('/');
-        });
+        authService.login(this.user)
+          .then(() => {
+            if (this.remember) {
+              localStorage.setItem('username', this.user.username);
+            } else {
+              localStorage.removeItem('username');
+            }
+            this.$router.push('/');
+          });
       }
     }
   };

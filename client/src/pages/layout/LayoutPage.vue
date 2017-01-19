@@ -62,10 +62,10 @@
         </div>
         <a class="item">Feedback</a>
         <div class="ui simple dropdown item userinfo">
-          <img alt="User Profile Picture" class="dojo-user-picture" src="https://avatars2.githubusercontent.com/u/4043284?v=3">          Jay.M.Hu
+          <img alt="User Profile Picture" class="dojo-user-picture" src="https://avatars2.githubusercontent.com/u/4043284?v=3"> {{user.username}}
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item">Sign out</a>
+            <a class="item" @click.prevent="signOut()">Sign out</a>
           </div>
         </div>
       </div>
