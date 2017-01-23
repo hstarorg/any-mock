@@ -55,7 +55,7 @@
       },
       setValue(val) {
         this.content = val;
-        this.$emit('input', value);
+        this.$emit('input', val);
         this.$element.dropdown('set selected', val);
       }
     }
