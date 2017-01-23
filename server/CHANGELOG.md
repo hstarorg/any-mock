@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.1 (2017-01-24)
+
+- 修复新建项目必须输入描述信息的问题
+
+
 ## 0.1.0 (2017-01-20)
 
 - 调整数据库设计

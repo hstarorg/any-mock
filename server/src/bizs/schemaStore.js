@@ -11,7 +11,7 @@ const validate = (data, schema, options = { abortEarly: false, allowUnknown: tru
 
 const PROJECT_CREATE_SCHEMA = Joi.object().keys({
   name: Joi.string().required(),
-  description: Joi.string(),
+  description: Joi.string().allow(''),
 });
 
 const API_SCHEMA = Joi.object().keys({
