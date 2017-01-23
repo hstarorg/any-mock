@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.1 (2017-01-24)
+
+- 修复维护API页面，添加Header时候，回车返回到list页面
+
 ## 0.1.0 (2017-01-20)
 
 - 发布新版本，采用Vue2 + Semantic UI

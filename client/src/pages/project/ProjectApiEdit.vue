@@ -13,7 +13,7 @@
     <sm-segment type="stacked">
       <h3> {{this.apiId ? 'Edit Api': 'Create New Api' }}
         <button type="button" class="ui button float-right" @click="$router.push(pathForApiList)"><i class="reply icon"></i>Return API List</button></h3>
-      <form class="ui small form" @submit.prevent="doSubmit()">
+      <form class="ui small form">
         <div class="fields">
           <div class="twelve wide field">
             <label>API Name</label>
@@ -41,10 +41,10 @@
           <sm-segment class="small">
             <div class="fields" v-for="header in api.res.headers">
               <div class="six wide field">
-                <input type="text" name="headerKey" placeholder="key" v-model="header.key">
+                <input type="text" name="headerKey" placeholder="key" v-model="header.key" :focus="header.focus">
               </div>
               <div class="six wide field">
-                <input type="text" name="headerValue" placeholder="value" v-model="header.value">
+                <input type="text" name="headerValue" placeholder="value" v-model="header.value" @keypress.enter.prevent="addResHeader()">
               </div>
               <div class="four wide field">
                 <button type="button" class="ui icon small button" @click="removeResHeader(header)"><i class="minus icon"></i></button>
@@ -102,9 +102,9 @@
         </div>
         <hr>
         <div class="ui buttons">
-          <button class="ui button" @click.prevent="$router.push(pathForApiList)">Cancel</button>
+          <button type="button" class="ui button" @click.prevent="$router.push(pathForApiList)">Cancel</button>
           <div class="or"></div>
-          <button class="ui positive button">Save API</button>
+          <button type="button" class="ui positive button" @click.prevent="doSubmit()">Save API</button>
         </div>
       </form>
     </sm-segment>
