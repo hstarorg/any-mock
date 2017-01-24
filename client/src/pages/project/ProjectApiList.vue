@@ -37,7 +37,7 @@
           <th>Path</th>
           <th>Is Enable</th>
           <th>Enable Proxy</th>
-          <th>Update User</th>
+          <!--<th>Update User</th>-->
           <th></th>
         </tr>
       </thead>
@@ -59,9 +59,9 @@
           <td class="collapsing">
             <sm-checkbox v-model="api.enableProxy" :disabled="true"></sm-checkbox>
           </td>
-          <td class="collapsing">
+          <!--<td class="collapsing">
             {{api.lastUpdateBy.name}}
-          </td>
+          </td>-->
           <td class="collapsing align center">
             <div class="basic compact mini blue ui icon button" title="Show Detail" @click="doApiOperate('detail', api)">
               <i class="newspaper icon"></i>
