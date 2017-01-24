@@ -3,7 +3,9 @@ export default {
   data() {
     return {
       projectId: '',
-      apiList: []
+      apiList: [],
+      groupModalShown: false,
+      groupList: []
     }
   },
   created() {
@@ -30,6 +32,26 @@ export default {
       } else if (type === 'delete') {
         layer.error('禁止删除');
       }
+    },
+    showGroupModal() {
+      this.groupModalShown = true;
+      this.loadGroupList();
+    },
+    loadGroupList() {
+      ajax.get(`${AppConf.apiHost}/project/${this.projectId}/group`)
+        .then(data => {
+          this.groupList = data;
+        });
+    },
+    addNewGroup() {
+
+    },
+    deleteGroup() {
+
+    },
+    saveGroup() {
+      alert('save');
+      this.shown = false;
     }
   }
 };

@@ -5,6 +5,7 @@ import SmDropdown from './dropdown/sm-dropdown';
 import SmDropdownList from './dropdown/sm-dropdown-list';
 import SmCheckbox from './checkbox/sm-checkbox';
 import SmRadio from './checkbox/sm-radio';
+import SmModal from './modal/sm-modal';
 
 // All components.
 const COMPONENTS = [
@@ -14,7 +15,8 @@ const COMPONENTS = [
   SmDropdown,
   SmDropdownList,
   SmCheckbox,
-  SmRadio
+  SmRadio,
+  SmModal
 ];
 
 const install = function (Vue) {

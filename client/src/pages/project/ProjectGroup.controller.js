@@ -4,7 +4,8 @@ export default {
   data() {
     return {
       projectId: '',
-      groupList: []
+      groupList: [],
+      shown: true
     };
   },
   created() {
@@ -12,17 +13,6 @@ export default {
     this.loadGroupList();
   },
   methods: {
-    loadGroupList() {
-      ajax.get(`${AppConf.apiHost}/project/${this.projectId}/groups`)
-        .then(data => {
-          this.groupList = data;
-        });
-    },
-    addNewGroup() {
 
-    },
-    deleteGroup() {
-
-    }
   }
 };

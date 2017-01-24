@@ -1,6 +1,6 @@
 import { layer } from './../../common';
 
-const menus = ['apis', 'settings', 'group'];
+const menus = ['apis', 'settings'];
 
 export default {
   data() {

@@ -4,9 +4,16 @@
       position: absolute;
       right: 5px;
     }
+    .btn-manage-group{
+      position: absolute;
+      right: 100px;
+    }
     .w-80{
       width: 80px;
     }
+  }
+  .api-group-container{
+    height: 400px;
   }
 </style>
 <template>
@@ -15,6 +22,9 @@
       <a class="item active"> API List </a>
       <button class="ui icon button green btn-add-api" @click.prevent="$router.push(pathForCreateApi)">
         <i class="plus icon"></i>Add Api
+      </button>
+      <button class="ui icon button blue btn-manage-group" @click.prevent="showGroupModal">
+        <i class="group icon"></i> Manage Group
       </button>
     </div>
     <table class="ui sortable celled striped selectable black very compact table">
@@ -66,6 +76,42 @@
         </tr>
       </tbody>
     </table>
+    <sm-modal v-model="groupModalShown" @ok="saveGroup()" header="Api Group Manage">
+      <div class="div api-group-container">
+        <table class="ui sortable celled striped selectable black very compact table ">
+          <thead>
+            <tr>
+              <!-- class: sorted descending -->
+              <th class="collapsing"><i class="heartbeat icon"></i></th>
+              <th>Group Name</th>
+              <th>API Count</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(group, index) in groupList">
+              <td class="text-center">{{index + 1}}</td>
+              <td>
+                {{ group.name }}
+              </td>
+              <td class="collapsing">
+                <div class="ui label">
+                  {{ group.apiCount }}
+                </div>
+              </td>
+              <td class="collapsing align center">
+                <div class="basic compact mini blue ui icon button" title="Edit API" @click="doApiOperate('edit', group)">
+                  <i class="edit icon"></i>
+                </div>
+                <div class="basic compact mini blue ui icon button" title="Delete API" @click="doApiOperate('delete', group)">
+                  <i class="minus icon"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </sm-modal>
   </div>
 </template>
 <script src="./ProjectApiList.controller.js"></script>

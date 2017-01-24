@@ -22,10 +22,6 @@
           <i class="list icon"></i>
           <span>API List</span>
         </a>
-        <a class="item menu" :class="{active: currentMenu === 'group'}" @click.stop="goPage('group')">
-          <i class="group icon"></i>
-          <span>Group Manage</span>
-        </a>
         <a class="item menu" :class="{active: currentMenu === 'settings'}" @click.stop="goPage('settings')">
           <i class="cogs icon"></i>
           <span>Settings</span>

@@ -29,8 +29,7 @@ const routes = [
       { path: 'project/:id/edit', component: ProjectEdit },
       {
         path: 'project/:id', component: ProjectDetail, children: [
-          { path: 'group', component: ProjectGroup },
-          { path: 'settings', component: ProjectSettings },
+            { path: 'settings', component: ProjectSettings },
           { path: 'apis', component: ProjectApiList },
           { path: 'new', component: ProjectApiEdit },
           { path: 'api/:apiId', component: ProjectApiDetail },
