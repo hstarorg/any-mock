@@ -1,7 +1,7 @@
-const db = require('./../common/db');
-const util = require('./../common/util');
-const schemaStore = require('./schemaStore');
-const userBiz = require('./userBiz');
+const db = require('./../../common/db');
+const util = require('./../../common/util');
+const schemaStore = require('./../schemaStore');
+const userBiz = require('./../userBiz');
 
 const PROJECT_COLLECTION = 'projects';
 
@@ -119,11 +119,29 @@ const addMember = (req, res, next) => {
     .catch(next);
 };
 
+const isProjectManager = (req, res, next) => {
+  let projId = req.params.projId;
+  let userId = req.user.id;
+  let projectFilter = {
+    id: projId,
+    $or: [{ createBy: userId }, { 'users.userId': userId }]
+  };
+  return db.findOne(PROJECT_COLLECTION, projectFilter)
+    .then(project => {
+      if (!project) {
+        return Promise.reject({ status: 401 });
+      }
+      req.project = project;
+      next();
+    }).catch(next);
+};
+
 module.exports = {
   createProject,
   getProjectDetail,
   updateProject,
   deleteProject,
   getProjectList,
-  addMember
+  addMember,
+  isProjectManager
 };

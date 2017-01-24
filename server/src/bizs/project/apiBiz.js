@@ -1,6 +1,6 @@
-const db = require('./../common/db');
-const util = require('./../common/util');
-const schemaStore = require('./schemaStore');
+const db = require('./../../common/db');
+const util = require('./../../common/util');
+const schemaStore = require('./../schemaStore');
 
 const PROJECT_COLLECTION = 'projects';
 const API_COLLECTION = 'apis';

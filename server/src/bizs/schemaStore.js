@@ -38,9 +38,14 @@ const PROJECT_MEMBER_SCHEMA = Joi.object().keys({
   memberName: Joi.string().required()
 });
 
+const PROJECT_GROUP_SCHEMA = Joi.object().keys({
+  groupName: Joi.string().required()
+});
+
 module.exports = {
   validate,
   PROJECT_CREATE_SCHEMA,
   API_SCHEMA,
-  PROJECT_MEMBER_SCHEMA
+  PROJECT_MEMBER_SCHEMA,
+  PROJECT_GROUP_SCHEMA
 };
