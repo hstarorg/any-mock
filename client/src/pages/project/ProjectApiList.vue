@@ -20,19 +20,23 @@
     <table class="ui sortable celled striped selectable black very compact table">
       <thead>
         <tr>
-          <th class="collapsing sorted descending"><i class="heartbeat icon"></i></th>
+          <!-- class: sorted descending -->
+          <th class="collapsing"><i class="heartbeat icon"></i></th>
           <th>Name</th>
           <th>Method</th>
           <th>Path</th>
           <th>Is Enable</th>
           <th>Enable Proxy</th>
+          <th>Update User</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(api,index) in apiList">
           <td class="text-center">{{index + 1}}</td>
-          <td>{{ api.name }}</td>
+          <td>
+            <router-link :to="'api/' + api.id">{{ api.name }}</router-link>
+          </td>
           <td class="collapsing">
             <div class="ui label">
               {{ api.method }}
@@ -44,6 +48,9 @@
           </td>
           <td class="collapsing">
             <sm-checkbox v-model="api.enableProxy" :disabled="true"></sm-checkbox>
+          </td>
+          <td class="collapsing">
+            {{api.lastUpdateBy.name}}
           </td>
           <td class="collapsing align center">
             <div class="basic compact mini blue ui icon button" title="Show Detail" @click="doApiOperate('detail', api)">

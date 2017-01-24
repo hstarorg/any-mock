@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## 0.1.1 (2017-01-24)
 
 - 修复维护API页面，添加Header时候，回车返回到list页面
+- 修复顶部一级菜单，和左侧二级菜单与主页面不符合的问题
+- `Feedback` 链接到 `Github New Issue` 页面
+- `API List` 页面，增加显示最后更新人员
+- 新增 `API Group` 维护页面
 
 ## 0.1.0 (2017-01-20)
 

@@ -60,7 +60,7 @@
             <input type="text" placeholder="Search">
           </div>
         </div>
-        <a class="item">Feedback</a>
+        <a class="item" href="https://github.com/hstarorg/any-mock/issues/new" target="_blank"><i class="ui send icon"></i>Feedback</a>
         <div class="ui simple dropdown item userinfo">
           <img alt="User Profile Picture" class="dojo-user-picture" src="https://avatars2.githubusercontent.com/u/4043284?v=3"> {{user.username}}
           <i class="dropdown icon"></i>

@@ -39,8 +39,8 @@ export default {
   created() {
     this.projectId = this.$route.params.id;
     this.apiId = this.$route.params.apiId;
-    // this.getProjectGroups();
-    // this.initApi();
+    this.getProjectGroups();
+    this.initApi();
   },
   mounted() {
     let self = this;
