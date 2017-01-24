@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## 0.1.1 (2017-01-24)
 
 - 修复新建项目必须输入描述信息的问题
+- 增加 `Group` 相关API
 
 
 ## 0.1.0 (2017-01-20)
