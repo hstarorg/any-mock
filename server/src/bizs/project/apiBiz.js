@@ -1,6 +1,7 @@
 const db = require('./../../common/db');
 const util = require('./../../common/util');
 const schemaStore = require('./../schemaStore');
+const projectBiz = require('./projectBiz');
 
 const PROJECT_COLLECTION = 'projects';
 const API_COLLECTION = 'apis';
@@ -38,6 +39,7 @@ const createApi = (req, res, next) => {
       return db.insert(API_COLLECTION, api);
     })
     .then(newApi => {
+      projectBiz.syncApiCount(projId);
       res.status(201).end();
     })
     .catch(next);
@@ -97,6 +99,7 @@ const deleteApi = (req, res, next) => {
       if (numRemoved === 0) {
         return Promise.reject({ status: 500, message: 'Delete api failed, please retry.' });
       }
+      projectBiz.syncApiCount(projId);
       res.end();
     })
     .catch(next);

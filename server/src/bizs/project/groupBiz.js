@@ -1,6 +1,7 @@
 const db = require('./../../common/db');
 const util = require('./../../common/util');
 const schemaStore = require('./../schemaStore');
+const projectBiz = require('./projectBiz');
 
 const PROJECT_COLLECTION = 'projects';
 const API_COLLECTION = 'apis';
@@ -88,6 +89,7 @@ const deleteGroup = (req, res, next) => {
     db.update(PROJECT_COLLECTION, { id: projId }, updateObj)
   ])
     .then(result => {
+      projectBiz.syncApiCount(projId);
       res.end();
     }).catch(next);
 };

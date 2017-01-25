@@ -4,6 +4,7 @@ const schemaStore = require('./../schemaStore');
 const userBiz = require('./../userBiz');
 
 const PROJECT_COLLECTION = 'projects';
+const API_COLLECTION = 'apis';
 
 const _getProjectById = (id, userId, fieldsObj = {}) => {
   return db.findOne(PROJECT_COLLECTION, { id }, fieldsObj)
@@ -136,6 +137,19 @@ const isProjectManager = (req, res, next) => {
     }).catch(next);
 };
 
+const syncApiCount = projId => {
+  // 查询API数量
+  db.count(API_COLLECTION, { projectId: projId })
+    .then(count => {
+      // 更新Project
+      return db.update(PROJECT_COLLECTION, { id: projId }, { $set: { apiCount: count } });
+    })
+    .catch(reason => {
+      // todo 记录日志
+      console.error(reason);
+    });
+}
+
 module.exports = {
   createProject,
   getProjectDetail,
@@ -143,5 +157,6 @@ module.exports = {
   deleteProject,
   getProjectList,
   addMember,
-  isProjectManager
+  isProjectManager,
+  syncApiCount
 };
