@@ -14,6 +14,11 @@
   }
   .api-group-container{
     height: 400px;
+    .op-cell{
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      text-align: center !important;
+    }
   }
 </style>
 <template>
@@ -76,7 +81,7 @@
         </tr>
       </tbody>
     </table>
-    <sm-modal v-model="groupModalShown" @ok="saveGroup()" header="Api Group Manage">
+    <sm-modal v-model="groupModalShown" header="Api Group Manage">
       <div class="div api-group-container">
         <table class="ui sortable celled striped selectable black very compact table ">
           <thead>
@@ -85,31 +90,55 @@
               <th class="collapsing"><i class="heartbeat icon"></i></th>
               <th>Group Name</th>
               <th>API Count</th>
-              <th></th>
+              <th class="op-cell">
+                <div class="basic very compact mini green ui icon button" title="Add New Group" @click="addNewGroup()">
+                  <i class="add icon"></i>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(group, index) in groupList">
               <td class="text-center">{{index + 1}}</td>
-              <td>
-                {{ group.name }}
+              <td :colspan="group.edit ? 2 : 1">
+                <div class="ui mini form" v-if="group.edit">
+                  <div class="field">
+                    <input type="text" v-model="group.editName">
+                  </div>
+                </div>
+                <template v-else>
+                  {{ group.name }}
+                </template>
               </td>
-              <td class="collapsing">
+              <td class="collapsing" v-if="!group.edit">
                 <div class="ui label">
                   {{ group.apiCount }}
                 </div>
               </td>
               <td class="collapsing align center">
-                <div class="basic compact mini blue ui icon button" title="Edit API" @click="doApiOperate('edit', group)">
-                  <i class="edit icon"></i>
-                </div>
-                <div class="basic compact mini blue ui icon button" title="Delete API" @click="doApiOperate('delete', group)">
-                  <i class="minus icon"></i>
-                </div>
+                <template v-if="!group.edit">
+                  <div class="basic compact mini blue ui icon button" title="Edit API" @click="changeToEditMode(group)">
+                    <i class="edit icon"></i>
+                  </div>
+                  <div class="basic compact mini red ui icon button" title="Delete API" v-if="isProjectOwner && index !== 0" @click="deleteApiGroup(group)">
+                    <i class="minus icon"></i>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="basic compact mini blue ui icon button" title="Save API Group" @click="saveApiGroup(group)">
+                    <i class="save icon"></i>
+                  </div>
+                  <div class="basic compact mini ui icon button" title="Cancel" @click="cancelGroupOperate(group)">
+                    <i class="cancel icon"></i>
+                  </div>
+                </template>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div slot="modal-actions">
+        <div class="ui button deny cancel" @click.prevent="groupModalShown = false">Close</div>
       </div>
     </sm-modal>
   </div>

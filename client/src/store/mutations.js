@@ -4,7 +4,7 @@ export const state = {
   logged: false,
   token: '',
   userInfo: {
-    userId: 0,
+    userId: '',
     username: ''
   }
 };
