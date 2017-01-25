@@ -24,9 +24,10 @@
         </template>
         {{ proj.description }}
         <template slot="extra">
-          <a>
-            <i class="users icon"></i> 2 APIs
+          <a class="ui mini teal label" v-if="userId === proj.createBy">
+            Owner
           </a>
+          <a><i class="users icon"></i> {{proj.apiCount}} APIs </a>
         </template>
       </sm-card>
     </sm-cards>

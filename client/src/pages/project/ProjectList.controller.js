@@ -2,11 +2,16 @@ import { ajax } from './../../common';
 export default {
   data() {
     return {
-      projectList: []
+      projectList: [],
     };
   },
   created() {
     this.loadProjectList();
+  },
+  computed: {
+    userId() {
+      return this.$store.state.userInfo.id;
+    }
   },
   methods: {
     goProjectDetail(project) {
