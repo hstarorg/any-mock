@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.2 (2017-01-x)
+
+- 新增About页面，支持支付宝、微信捐赠
+- 取消用户头像
+- 暂时屏蔽无效菜单
+- 美化 `Dashboard` 页面
+
 ## 0.1.1 (2017-01-24)
 
 - 修复维护API页面，添加Header时候，回车返回到list页面

@@ -12,6 +12,7 @@ import {
 } from './pages/project';
 import { TeamList } from './pages/team';
 import { UserSetting } from './pages/setting';
+import { About } from './pages/about';
 import { NotFound } from './pages/system';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -29,14 +30,15 @@ const routes = [
       { path: 'project/:id/edit', component: ProjectEdit },
       {
         path: 'project/:id', component: ProjectDetail, children: [
-            { path: 'settings', component: ProjectSettings },
+          { path: 'settings', component: ProjectSettings },
           { path: 'apis', component: ProjectApiList },
           { path: 'new', component: ProjectApiEdit },
           { path: 'api/:apiId', component: ProjectApiDetail },
           { path: 'api/:apiId/edit', component: ProjectApiEdit }
         ]
       },
-      { path: 'settings', component: UserSetting }
+      { path: 'settings', component: UserSetting },
+      { path: 'about', component: About }
     ]
   },
   { path: '*', component: NotFound }

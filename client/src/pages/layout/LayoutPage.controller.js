@@ -4,9 +4,9 @@ export default {
     return {
       menuList: [
         { name: '/', text: 'Dashboard', url: '/', icon: 'dashboard' },
-        { name: 'team', text: 'Team', url: '/team', icon: 'group' },
+        // { name: 'team', text: 'Team', url: '/team', icon: 'group' },
         { name: 'project', text: 'Project', url: '/project', icon: 'cubes' },
-        { name: 'settings', text: 'Settings', url: '/settings', icon: 'cogs' },
+        // { name: 'settings', text: 'Settings', url: '/settings', icon: 'cogs' },
         { name: 'about', text: 'About', url: '/about', icon: 'info' }
       ],
       currentMenu: '/'
