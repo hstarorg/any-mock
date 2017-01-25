@@ -1,6 +1,6 @@
 {
   "name": "any-mock-client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "any-mock client",
   "author": "Jay.M.Hu <hm910705@163.com>",
   "private": true,
@@ -16,8 +16,7 @@
     "vue": "^2.1.8",
     "vue-i18n": "^4.10.0",
     "vue-router": "^2.1.1",
-    "vuex": "^2.1.1",
-    "vue-strap": "^1.1.7"
+    "vuex": "^2.1.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.50",

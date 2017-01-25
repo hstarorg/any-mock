@@ -1,9 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.1.2 (2017-01-x)
+## 0.1.2 (2017-01-25)
 
 - 禁止删除默认Group
+- 同步Api数量到Group名下
 
 ## 0.1.1 (2017-01-24)
 

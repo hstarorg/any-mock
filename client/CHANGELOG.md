@@ -1,12 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 0.1.2 (2017-01-x)
+## 0.1.2 (2017-01-25)
 
 - 新增About页面，支持支付宝、微信捐赠
 - 取消用户头像
 - 暂时屏蔽无效菜单
 - 美化 `Dashboard` 页面
+- 完成 `Api Group` 管理功能（非Owner，不能删除；同时不能删除第一个）
+- 在项目列表中，显示是否为Owner。
 
 ## 0.1.1 (2017-01-24)
 
