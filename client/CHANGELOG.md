@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.3 (2017-01-25)
+
+- 在about页面展示捐赠列表
+
 ## 0.1.2 (2017-01-25)
 
 - 新增About页面，支持支付宝、微信捐赠
