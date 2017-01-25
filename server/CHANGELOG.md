@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 0.1.2 (2017-01-x)
+
+- 禁止删除默认Group
+
 ## 0.1.1 (2017-01-24)
 
 - 修复新建项目必须输入描述信息的问题

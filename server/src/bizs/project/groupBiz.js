@@ -72,6 +72,9 @@ const deleteGroup = (req, res, next) => {
   for (let i = groups.length - 1; i >= 0; i--) {
     if (groups[i].groupId === groupId) {
       groups.splice(i, 1);
+      if (i === 0) {
+        return next({ status: 500, message: 'Can\'t delete the first group' });
+      }
       break;
     }
   }
@@ -86,7 +89,7 @@ const deleteGroup = (req, res, next) => {
   ])
     .then(result => {
       res.end();
-    });
+    }).catch(next);
 };
 
 module.exports = {
